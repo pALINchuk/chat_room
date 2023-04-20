@@ -1,0 +1,1 @@
+Single common chat for many users.
