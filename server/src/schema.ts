@@ -1,5 +1,5 @@
-import {buildSchema, GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID} from "graphql"
-import _ from "lodash"
+import {buildSchema, GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLList} from "graphql"
+import {find as _find, filter as _filter} from "lodash"
 
 const exampleData = {
 	messages:[
@@ -47,7 +47,13 @@ const UserType: GraphQLObjectType = new GraphQLObjectType({
 	fields: () =>({
 		id: {type: GraphQLID},
 		username: {type: GraphQLString},
-		password: {type: GraphQLString}
+		password: {type: GraphQLString},
+		messages: {
+			type: new GraphQLList(MessageType),
+			resolve(parent, args){
+				return _filter(exampleData.messages, {userId: parent.id})
+			}
+		}
 	})
 })
 
@@ -59,8 +65,8 @@ const MessageType: GraphQLObjectType = new GraphQLObjectType({
 		post_date: {type: GraphQLString},
 		user: {
 			type: UserType,
-			resolve: (parent, args)=>{
-				return _.find(exampleData.users, {id: parent.userId})
+			resolve(parent, args){
+				return _find(exampleData.users, {id: parent.userId})
 			}
 		}
 
@@ -83,14 +89,14 @@ const RootQuery = new GraphQLObjectType({
 			type: MessageType,
 			args: {id: {type: GraphQLInt}},
 			resolve: (parent, args) =>{
-				return _.find(exampleData.messages, {id: args.id})
+				return _find(exampleData.messages, {id: args.id})
 			}
 		},
 		user:{
 			type: UserType,
 			args: {id: {type: GraphQLInt}},
 			resolve: (parent, args) =>{
-				return _.find(exampleData.users, {id: args.id})
+				return _find(exampleData.users, {id: args.id})
 			}
 		}
 	}
