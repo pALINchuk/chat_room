@@ -8,48 +8,8 @@ import {
 	GraphQLNonNull
 } from "graphql"
 import {find as _find, filter as _filter} from "lodash"
-import {Message} from "../models/Message";
-import {User} from "../models/User";
-
-// const exampleData = {
-// 	messages:[
-// 		{
-// 			id: 1,
-// 			text: "hello admin, how are you doing?",
-// 			post_date: Date.now().toString(),
-// 			userId: 2
-// 		},
-// 		{
-// 			id: 2,
-// 			text: "Mariana, come back, please, I miss you *sad eyes*",
-// 			post_date: Date.now().toString(),
-// 			userId: 1
-// 		},
-// 		{
-// 			id: 3,
-// 			text: "die, cheater, I hate you",
-// 			post_date: Date.now().toString(),
-// 			userId: 2
-// 		}
-// 	],
-// 	users:[
-// 		{
-// 			id: 1,
-// 			username: "admin",
-// 			password: "admin"
-// 		},
-// 		{
-// 			id: 2,
-// 			username: "Mariana",
-// 			password: "TheOneWhoLovedMe"
-// 		}
-// 	],
-// 	tokenBlackList: [
-// 		{id: 1, token: ""},
-// 		{id: 2, token: ""}
-// 	]
-// }
-
+import {Message} from "../models";
+import {User} from "../models";
 
 
 const UserType: GraphQLObjectType = new GraphQLObjectType({

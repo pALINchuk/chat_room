@@ -3,7 +3,7 @@ import bodyParser, {BodyParser} from "body-parser";
 import logger from "morgan";
 import {graphqlHTTP} from "express-graphql";
 import mongoose from "mongoose"
-import {schema} from "./schema/schema";
+import {schema} from "./schema";
 
 const app : Express = express()
 
