@@ -98,7 +98,14 @@ const RootQuery = new GraphQLObjectType({
 			resolve: (parent, args) =>{
 				return _find(exampleData.users, {id: args.id})
 			}
+		},
+		messages:{
+			type: GraphQLList(MessageType),
+			resolve: (parent, args) =>{
+				return exampleData.messages
+			}
 		}
+
 	}
 })
 
