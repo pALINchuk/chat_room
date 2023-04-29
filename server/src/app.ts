@@ -3,9 +3,15 @@ import bodyParser, {BodyParser} from "body-parser";
 import logger from "morgan";
 import {graphqlHTTP} from "express-graphql";
 import mongoose from "mongoose"
-import {schema} from "./schema";
+import dotenv from "dotenv"
+import {schema} from "./schema/schema";
+
+
 
 const app : Express = express()
+dotenv.config()
+
+
 
 app.use(bodyParser());
 app.use(logger('dev'));

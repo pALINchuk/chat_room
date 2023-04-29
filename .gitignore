@@ -3,6 +3,7 @@ server/node_modules/
 client/node_modules/
 node_modules/
 server/build/
+server/src/.env
 server/dist/
 client/build/
 client/dist/
