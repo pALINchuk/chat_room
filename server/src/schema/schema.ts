@@ -7,71 +7,12 @@ import {
 	GraphQLList,
 	GraphQLNonNull
 } from "graphql"
-import {Document, HydratedDocument} from "mongoose";
-import {IUser, Message} from "../models";
-import {User} from "../models";
-import {signToken, verifyPassword} from "../utils";
-import {addMessage, register} from "./resolvers";
+import {addMessage, message, messages, register, user} from "./resolvers";
 import {login} from "./resolvers";
+import {MessageType, TokenType, UserType, UserWithTokenType} from "./types";
 
 
 
-
-const UserType: GraphQLObjectType = new GraphQLObjectType({
-	name: 'User',
-	fields: () =>({
-		id: {type: GraphQLID},
-		username: {type: GraphQLString},
-		password: {type: GraphQLString},
-		messages: {
-			type: new GraphQLList(MessageType),
-			resolve(parent, args){
-				return Message.find({userId: parent.id})
-			}
-		}
-	})
-})
-
-const UserWithTokenType: GraphQLObjectType = new GraphQLObjectType({
-	name: 'UserWithToken',
-	fields: () =>({
-		id: {type: GraphQLID},
-		username: {type: GraphQLString},
-		password: {type: GraphQLString},
-		messages: {
-			type: new GraphQLList(MessageType),
-			resolve(parent, args){
-				return Message.find({userId: parent.id})
-			}
-		},
-		token: {type: GraphQLString}
-	})
-})
-
-const MessageType: GraphQLObjectType = new GraphQLObjectType({
-	name: 'Message',
-	fields: () =>({
-		id: {type: GraphQLID},
-		text: {type: GraphQLString},
-		post_date: {type: GraphQLString},
-		user: {
-			type: UserType,
-			resolve(parent, args){
-				return User.findById(parent.userId);
-			}
-		}
-
-	})
-})
-
-
-const TokenType: GraphQLObjectType = new GraphQLObjectType({
-	name: 'Token',
-	fields: () =>({
-		id: {type: GraphQLID},
-		token: {type: GraphQLString}
-	})
-})
 
 
 const RootQuery = new GraphQLObjectType({
@@ -80,23 +21,16 @@ const RootQuery = new GraphQLObjectType({
 		message:{
 			type: MessageType,
 			args: {id: {type: GraphQLID}},
-			resolve: (parent, args) =>{
-				return Message.findById(args.id)
-			}
+			resolve: message
 		},
 		user:{
 			type: UserType,
 			args: {id: {type: GraphQLString}},
-			resolve: (parent, args, context) =>{
-				console.log(context)
-				return User.findById(args.id)
-			}
+			resolve: user
 		},
 		messages:{
 			type: GraphQLList(MessageType),
-			resolve: (parent, args) =>{
-				return Message.find({})
-			}
+			resolve: messages
 		}
 
 	}
@@ -132,8 +66,6 @@ const Mutation = new GraphQLObjectType({
 		}
 	}
 })
-
-
 
 
 
