@@ -1,0 +1,30 @@
+$bg-colour: #202124
+$text-colour: #fdfdfd
+$link-colour: #c166c1
+
+.ErrorPage
+  height: 100%
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  background: $bg-colour
+
+.ErrorPage_Content
+  padding: 3em
+  display: grid
+  grid-template-rows: 1fr 1fr
+  grid-template-columns: 1fr
+
+.ErrorPage_Content_missingHeader
+  text-align: center
+  font-family: Poppins, sans-serif
+  color: $text-colour
+
+.ErrorPage_Content_homeLink
+  text-align: center
+  padding: 1em
+  text-decoration: underline
+  font-family: Poppins, sans-serif
+  font-size: 20px
+  color: $link-colour

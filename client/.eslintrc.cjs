@@ -9,6 +9,7 @@ module.exports = {
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   plugins: ['react-refresh'],
   rules: {
+    'no-unused-vars': ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     'react-refresh/only-export-components': 'warn',
   },
 }
