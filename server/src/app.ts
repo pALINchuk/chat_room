@@ -5,6 +5,7 @@ import {graphqlHTTP} from "express-graphql";
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 import {schema} from "./schema/schema";
+import {authMiddleware} from "./auth/authMiddleware";
 
 
 
@@ -33,12 +34,17 @@ mongoose.connection.once('open', ()=>{
 
 
 
-
+app.use(authMiddleware)
 app.use('/graphql',
-	graphqlHTTP({
+	graphqlHTTP((req:any)=>({
 		schema: schema,
-		graphiql: true
-	})
+		graphiql: true,
+		context:{
+			isAuth: req.isAuth,
+			user: req.user,
+			error: req.error
+		}
+	}))
 )
 
 app.get('/',(req : Request,res : Response)=>{

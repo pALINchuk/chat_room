@@ -10,8 +10,9 @@ import {
 import {Document, HydratedDocument} from "mongoose";
 import {IUser, Message} from "../models";
 import {User} from "../models";
-import {hashPassword, signToken, verifyPassword} from "../utils";
-import {verify} from "argon2";
+import {signToken, verifyPassword} from "../utils";
+import {addMessage, register} from "./resolvers";
+import {login} from "./resolvers";
 
 
 
@@ -86,7 +87,8 @@ const RootQuery = new GraphQLObjectType({
 		user:{
 			type: UserType,
 			args: {id: {type: GraphQLString}},
-			resolve: (parent, args) =>{
+			resolve: (parent, args, context) =>{
+				console.log(context)
 				return User.findById(args.id)
 			}
 		},
@@ -110,15 +112,7 @@ const Mutation = new GraphQLObjectType({
 				post_date: {type: new GraphQLNonNull(GraphQLString)},
 				userId: {type: new GraphQLNonNull(GraphQLID)}
 			},
-			resolve(parent, args:{text: string, post_date: string, userId: string}){
-				const {text, post_date, userId} = args;
-				const message = new Message({
-					text: text,
-					post_date: post_date,
-					userId: userId
-				})
-				return message.save()
-			}
+			resolve: addMessage
 		},
 		register: {
 			type: UserWithTokenType,
@@ -126,21 +120,7 @@ const Mutation = new GraphQLObjectType({
 				username: {type: new GraphQLNonNull(GraphQLString)},
 				password: {type: new GraphQLNonNull(GraphQLString)}
 			},
-			resolve: async (parent, args : {username: string, password: string}) => {
-				const {username, password}: {username: string, password: string} = args;
-				const hashedPassword: string = await hashPassword(password)
-
-				const result: HydratedDocument<IUser> = await new User({
-					username: username,
-					password: hashedPassword
-				}).save()
-				console.log(result)
-				return {
-					username: result.username,
-					password: result.password,
-					token: signToken({userId: result._id})
-				}
-			}
+			resolve: register
 		},
 		login:{
 			type: TokenType,
@@ -148,23 +128,7 @@ const Mutation = new GraphQLObjectType({
 				username: {type: GraphQLString},
 				password: {type: GraphQLString}
 			},
-			resolve: async (parent, args: {username: string, password: string}) =>{
-				const {username, password}: {username: string, password: string} = args;
-
-				const result: HydratedDocument<IUser> = await User.findOne({username: username})
-				if(!result){
-					throw new Error("User not found")
-				}
-
-				const isValidPassword: boolean = await verifyPassword(result.password, password)
-				if (!isValidPassword) {
-					throw new Error("Invalid password");
-				}
-
-				return {
-					token: signToken({userId: username})
-				}
-			}
+			resolve: login
 		}
 	}
 })

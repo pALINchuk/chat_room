@@ -2,6 +2,6 @@ import jwt, {Token} from "jsonwebtoken"
 
 
 
-export const verifyToken = async (token) =>{
+export const verifyToken = (token) =>{
 	return jwt.verify(token, process.env.JWT_SECRET)
 }
