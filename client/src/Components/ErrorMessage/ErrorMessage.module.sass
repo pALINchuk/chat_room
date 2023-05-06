@@ -1,0 +1,112 @@
+$error-bg-color: #dfdfdf
+$error-border-color: #999
+$text-colour: #232629
+$error-message-font-size: 1rem
+
+.ErrorMessage
+  height: 10vh
+  width: 80vw
+  background: $error-bg-color
+  border: 3px solid $error-border-color
+  border-radius: 20px
+  top: 0
+  margin-top: 1em
+  margin-left: 10vw
+  overflow: hidden
+  position: absolute
+  align-self: center
+  z-index: 10000
+  padding: 1em
+  display: grid
+  grid-template-columns: 1fr 3vh
+  grid-template-rows: 3vh 1fr
+
+.ErrorMessage_header
+  font-family: Poppins, sans-serif
+  font-size: $error-message-font-size
+  font-weight: bold
+  color: $text-colour
+  grid-column: 1/2
+
+.ErrorMessage_close
+  grid-column: 2/3
+  grid-row: 1/2
+  font-size: $error-message-font-size
+  cursor: pointer
+
+.ErrorMessage_message
+  font-family: Helvetica, sans-serif
+  font-size: $error-message-font-size
+  font-weight: normal
+  color: $text-colour
+  grid-column: 1/3
+  grid-row: 2/3
+
+.ErrorMessage__visible
+  animation: Message-fade-in .2s
+  animation-iteration-count: 1
+  animation-timing-function: ease-out
+  animation-fill-mode: forwards
+
+
+.ErrorMessage__hidden
+  animation: Message-fade-out .3s
+  animation-iteration-count: 1
+  animation-timing-function: ease-out
+  animation-fill-mode: forwards
+
+@media screen and (max-width: 380px)
+  .ErrorMessage_header
+    font-size: .6rem
+
+  .ErrorMessage_message
+    font-size: .6rem
+
+  .ErrorMessage_close
+    font-size: .6rem
+
+@media screen and (min-width: 700px)
+  .ErrorMessage
+    height: 7rem
+    width: 20rem
+    border-radius: 20px 20px 20px 5px
+    padding: 1em
+    overflow: hidden
+    position: absolute
+    margin-top: 0
+    margin-left: 1em
+    margin-bottom: 1em
+    top: unset
+    left: 0
+    bottom: 0
+    z-index: 10000
+
+    @keyframes Message-fade-in
+      0%
+        visibility: visible
+        transform: translateY( calc(14vh + 1rem))
+      100%
+        transform: translateY(0)
+
+    @keyframes Message-fade-out
+      0%
+        transform: translateY(0)
+      100%
+        transform: translateY( calc(14vh + 1rem))
+        visibility: hidden
+
+
+@media screen and (max-width: 699px)
+  @keyframes Message-fade-in
+    0%
+      visibility: visible
+      transform: translateY( calc(-14vh - 1rem))
+    100%
+      transform: translateY(0)
+
+  @keyframes Message-fade-out
+    0%
+      transform: translateY(0)
+    100%
+      transform: translateY( calc(-14vh - 1rem))
+      visibility: hidden
