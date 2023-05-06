@@ -4,11 +4,11 @@ import styles from "./ErrorMessage.module.sass"
 
 type PropsType = {
 	message: string,
-	status: number
+	status: string
 }
 
 export const ErrorMessage = (props: PropsType) =>{
-	const {message,status}:{message:string,status:number} = props;
+	const {message,status}:{message:string,status:string} = props;
 	const [isVisible, setIsVisible] : [boolean,any] = useState(false);
 	const errorMessageRef : React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
 
