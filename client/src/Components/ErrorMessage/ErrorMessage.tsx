@@ -1,13 +1,13 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 import styles from "./ErrorMessage.module.sass"
 
 
-type PropsType = {
+type OwnProps = {
 	message: string,
 	status: string
 }
 
-export const ErrorMessage = (props: PropsType) =>{
+export const ErrorMessage: FunctionComponent<OwnProps> = (props: OwnProps) =>{
 	const {message,status}:{message:string,status:string} = props;
 	const [isVisible, setIsVisible] : [boolean,any] = useState(false);
 	const errorMessageRef : React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)

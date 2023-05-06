@@ -1,8 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React, {FunctionComponent, useRef, useState} from 'react';
 import styles from "./ErrorPage.module.sass"
 import {Link} from "react-router-dom";
 
-export const ErrorPage = () => (
+export const ErrorPage: FunctionComponent = () => (
 		<div className={styles.ErrorPage}>
 			<div className={styles.ErrorPage_Content}>
 				<h1 className={styles.ErrorPage_Content_missingHeader}>
