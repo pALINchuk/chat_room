@@ -1,6 +1,7 @@
 $bg-color-theme-dark: #202124
 $text-colour-theme-dark: #fdfdfd
 $shadow-colour-theme-dark: rgba(0,170,255,0.75)
+$placeholder-colour-theme-dark: #757575
 
 .LoginPage
   width: 100%
@@ -11,56 +12,136 @@ $shadow-colour-theme-dark: rgba(0,170,255,0.75)
   background: $bg-color-theme-dark
 
 
+
+
+
 .LoginPage_Form
   display: grid
   border-radius: 1em
   padding: 2em
   transition: box-shadow .15s ease-in-out
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr
+  grid-template-rows: 1fr 1fr 1fr 1fr
   grid-template-columns: 2fr 2fr 1fr
-  grid-row-gap: 1em
+  grid-row-gap: 3.5rem
 
 
 .LoginPage_Form_header
   grid-row: 1/2
   grid-column: 1/4
   font-family: Poppins, sans-serif
+  font-size: 2rem
   position: relative
   color: $text-colour-theme-dark
+  cursor: default
+
+
+
 
 .LoginPage_Form_username
   grid-row: 2/3
   grid-column: 1/4
   position: relative
   outline: none
-  border-radius: 5px
-  border: 1px solid black
+  //border-radius: 5px
+  border: none
+  border-bottom: 2px solid $placeholder-colour-theme-dark
   padding: 1rem
   font-family: "Open Sans", sans-serif
   font-size: 1.2rem
   background: $bg-color-theme-dark
   color: $text-colour-theme-dark
+  transition: all .1s
+
+.LoginPage_Form_username:focus
+  border-bottom-color: $shadow-colour-theme-dark
+
 
 .LoginPage_Form_password
   grid-row: 3/4
   grid-column: 1/3
   position: relative
   outline: none
-  border-radius: 5px
-  border: 1px solid black
+  //border-radius: 5px
+  border: none
+  border-bottom: 2px solid $placeholder-colour-theme-dark
   padding: 1rem
   font-size: 1.2rem
   font-family: "Open Sans", sans-serif
   background: $bg-color-theme-dark
   color: $text-colour-theme-dark
+  transition: all .1s
+
+.LoginPage_Form_password:focus
+  border-bottom-color: $shadow-colour-theme-dark
+
+
+.LoginPage_Form_inputPlaceholder
+  z-index: 10
+  font-family: "Open Sans", sans-serif
+  font-size: 1.2rem
+  color: $placeholder-colour-theme-dark
+  position: relative
+  width: 100%
+  height: 100%
+  display: flex
+  align-items: center
+  padding: 1rem
+  cursor: pointer
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  transition: all .1s
+
+
+.LoginPage_Form_usernamePlaceholder
+  grid-row: 2/3
+  grid-column: 1/4
+
+.LoginPage_Form_passwordPlaceholder
+  grid-row: 3/4
+  grid-column: 1/3
+
+
+.LoginPage_Form_username:focus  + .LoginPage_Form_usernamePlaceholder
+  transform: translateY(-100%)
+  cursor: initial
+  color: $shadow-colour-theme-dark
+
+.LoginPage_Form_username:not(:placeholder-shown) + .LoginPage_Form_usernamePlaceholder
+  transform: translateY(-100%)
+  cursor: default
+
+.LoginPage_Form_password:focus  + .LoginPage_Form_passwordPlaceholder
+  transform: translateY(-100%)
+  cursor: initial
+  color: $shadow-colour-theme-dark
+
+.LoginPage_Form_password:not(:placeholder-shown) + .LoginPage_Form_passwordPlaceholder
+  transform: translateY(-100%)
+  cursor: default
+
+
+
+
+
 
 .LoginPage_Form_showPasswordBtn
   grid-row: 3/4
   grid-column: 3/4
-  border: 0
+  border: none
+  font-family: Arial, sans-serif
+  outline: none
+  font-size: 1.2rem
   background: $bg-color-theme-dark
   color: $text-colour-theme-dark
   cursor: pointer
+
+.LoginPage_Form_showPasswordBtn:hover
+  color: $shadow-colour-theme-dark
+
+.LoginPage_Form_showPasswordBtn__focused
+  color: $shadow-colour-theme-dark
 
 .LoginPage_Form_submitBtn
   grid-row: 4/5
@@ -70,12 +151,16 @@ $shadow-colour-theme-dark: rgba(0,170,255,0.75)
   border: 0
   border-radius: 5px
   font-family: Poppins, sans-serif
+  font-size: 1.2rem
   cursor: pointer
   transition: all .15s
+
+
 
 .LoginPage_Form_submitBtn:hover
   background: $bg-color-theme-dark
   box-shadow: 0px 0px 5px 3px $shadow-colour-theme-dark inset
+
 
 .LoginPage_Form:has(input:focus)
   box-shadow: 0px 4px 15px 8px $shadow-colour-theme-dark
