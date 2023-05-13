@@ -2,6 +2,7 @@ import styles from './App.module.sass'
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {ErrorPage} from "../ErrorPage";
 import {Login} from "../Login";
+import {Register} from "../Register";
 
 export const App = () => {
 
@@ -11,7 +12,7 @@ export const App = () => {
             <Routes>
                 <Route path="/" element={"index"}/>
                 <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={"register"}/>
+                <Route path="/register" element={<Register/>}/>
                 <Route path="*" element={<ErrorPage/>}/>
             </Routes>
         </Router>

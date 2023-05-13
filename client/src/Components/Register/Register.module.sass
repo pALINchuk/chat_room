@@ -1,0 +1,168 @@
+$bg-color-theme-dark: #202124
+$text-colour-theme-dark: #fdfdfd
+$active-colour-theme-dark: rgba(0,170,255,0.75)
+$placeholder-colour-theme-dark: #757575
+
+.RegisterPage
+  width: 100%
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+  background: $bg-color-theme-dark
+
+
+
+
+
+.RegisterPage_Form
+  display: grid
+  border-radius: 1em
+  padding: 2em
+  transition: box-shadow .15s ease-in-out
+  grid-template-rows: 1fr 1fr 1fr 1fr
+  grid-template-columns: 2fr 2fr 1fr
+  grid-row-gap: 3.5rem
+
+
+.RegisterPage_Form_header
+  grid-row: 1/2
+  grid-column: 1/4
+  font-family: Poppins, sans-serif
+  font-size: 2rem
+  position: relative
+  color: $text-colour-theme-dark
+  cursor: default
+
+
+
+
+.RegisterPage_Form_username
+  grid-row: 2/3
+  grid-column: 1/4
+  position: relative
+  outline: none
+  //border-radius: 5px
+  border: none
+  border-bottom: 2px solid $placeholder-colour-theme-dark
+  padding: 1rem
+  font-family: "Open Sans", sans-serif
+  font-size: 1.2rem
+  background: $bg-color-theme-dark
+  color: $text-colour-theme-dark
+  transition: all .1s
+
+.RegisterPage_Form_username:focus
+  border-bottom-color: $active-colour-theme-dark
+
+
+.RegisterPage_Form_password
+  grid-row: 3/4
+  grid-column: 1/3
+  position: relative
+  outline: none
+  //border-radius: 5px
+  border: none
+  border-bottom: 2px solid $placeholder-colour-theme-dark
+  padding: 1rem
+  font-size: 1.2rem
+  font-family: "Open Sans", sans-serif
+  background: $bg-color-theme-dark
+  color: $text-colour-theme-dark
+  transition: all .1s
+
+.RegisterPage_Form_password:focus
+  border-bottom-color: $active-colour-theme-dark
+
+
+.RegisterPage_Form_inputPlaceholder
+  z-index: 10
+  font-family: "Open Sans", sans-serif
+  font-size: 1.2rem
+  color: $placeholder-colour-theme-dark
+  position: relative
+  width: 100%
+  height: 100%
+  display: flex
+  align-items: center
+  padding: 1rem
+  cursor: pointer
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  transition: all .1s
+
+
+.RegisterPage_Form_usernamePlaceholder
+  grid-row: 2/3
+  grid-column: 1/4
+
+.RegisterPage_Form_passwordPlaceholder
+  grid-row: 3/4
+  grid-column: 1/3
+
+
+.RegisterPage_Form_username:focus  + .RegisterPage_Form_usernamePlaceholder
+  transform: translateY(-100%)
+  cursor: initial
+  color: $active-colour-theme-dark
+
+.RegisterPage_Form_username:not(:placeholder-shown) + .RegisterPage_Form_usernamePlaceholder
+  transform: translateY(-100%)
+  cursor: default
+
+.RegisterPage_Form_password:focus  + .RegisterPage_Form_passwordPlaceholder
+  transform: translateY(-100%)
+  cursor: initial
+  color: $active-colour-theme-dark
+
+.RegisterPage_Form_password:not(:placeholder-shown) + .RegisterPage_Form_passwordPlaceholder
+  transform: translateY(-100%)
+  cursor: default
+
+
+
+
+
+
+
+
+.RegisterPage_Form_showPasswordBtn
+  grid-row: 3/4
+  grid-column: 3/4
+  border: none
+  font-family: Arial, sans-serif
+  outline: none
+  font-size: 1.2rem
+  background: $bg-color-theme-dark
+  color: $text-colour-theme-dark
+  cursor: pointer
+
+.RegisterPage_Form_showPasswordBtn:hover
+  color: $active-colour-theme-dark
+
+.RegisterPage_Form_showPasswordBtn__focused
+  color: $active-colour-theme-dark
+
+.RegisterPage_Form_submitBtn
+  grid-row: 4/5
+  grid-column: 2/4
+  background: $active-colour-theme-dark
+  color: $text-colour-theme-dark
+  border: 0
+  border-radius: 5px
+  font-family: Poppins, sans-serif
+  font-size: 1.2rem
+  cursor: pointer
+  transition: all .15s
+
+
+
+.RegisterPage_Form_submitBtn:hover
+  background: $bg-color-theme-dark
+  box-shadow: 0px 0px 5px 3px $active-colour-theme-dark inset
+
+@media screen and (min-width: 700px)
+  .RegisterPage_Form:has(input:focus)
+    box-shadow: 0px 4px 15px 8px $active-colour-theme-dark

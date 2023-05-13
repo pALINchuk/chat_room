@@ -1,17 +1,16 @@
 import React, {FunctionComponent, useRef} from 'react';
-import styles from "./Login.module.sass"
-import {Link} from "react-router-dom";
-import {updatePassword, updateUsername} from "../../redux/slices/loginSlice.ts";
+import styles from "./Register.module.sass"
+import {updatePassword, updateUsername} from "../../redux/slices/registerSlice";
 import {TypedDispatch, useDispatch, useSelector} from "../../hooks.ts";
 import {ErrorMessage} from "../ErrorMessage";
 
 
-export const Login: FunctionComponent = () => {
+export const Register: FunctionComponent = () => {
 
 
-	const {username, password}: {username: string, password: string} = useSelector(state=>state.login)
-	const {error, status}: {error: string, status: string} = useSelector(state=>state.login.loginReq)
-	const dispatch : TypedDispatch = useDispatch()
+	const {username, password}: {username: string, password: string} = useSelector(state=>state.register)
+	const {error, status}: {error: string, status: string} = useSelector(state=>state.register.registerReq)
+	const dispatch: TypedDispatch = useDispatch()
 
 
 	const passwordInputRef : React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
@@ -39,59 +38,49 @@ export const Login: FunctionComponent = () => {
 		}
 
 		if(!showPasswordButton.current) return;
-		showPasswordButton.current.classList.toggle(styles.LoginPage_Form_showPasswordBtn__focused)
+		showPasswordButton.current.classList.toggle(styles.RegisterPage_Form_showPasswordBtn__focused)
 	}
 
 	return (
 		<>
-			<div className={styles.LoginPage}>
-				<form className={styles.LoginPage_Form} onSubmit={handleSubmit}>
-					<h1 className={styles.LoginPage_Form_header}>Sign in</h1>
+			<div className={styles.RegisterPage}>
+				<form className={styles.RegisterPage_Form} onSubmit={handleSubmit}>
+					<h1 className={styles.RegisterPage_Form_header}>Sign up</h1>
 
 					<input
 						type="text"
 						id="usernameInput"
-						className={styles.LoginPage_Form_username}
+						className={styles.RegisterPage_Form_username}
 						placeholder=" "
 						ref={usernameInputRef}
 						onInput={handleUsernameInput}
 						value={username}
 						pattern="[A-Za-z0-9]{1,20}"
 						title="username should consist only of letters of english alphabet or numbers and can be at most 20 symbols long"
-						autoComplete="on"
 						required
 					/>
-					<label htmlFor="usernameInput" className={[styles.LoginPage_Form_usernamePlaceholder, styles.LoginPage_Form_inputPlaceholder].join(' ')}>
+					<label htmlFor="usernameInput" className={[styles.RegisterPage_Form_usernamePlaceholder, styles.RegisterPage_Form_inputPlaceholder].join(' ')}>
 						username
 					</label>
 
 					<input
 						type="password"
 						id="passwordInput"
-						className={styles.LoginPage_Form_password}
+						className={styles.RegisterPage_Form_password}
 						placeholder=" "
 						ref={passwordInputRef}
 						onInput={handlePasswordInput}
 						value={password}
 						pattern="[a-zA-Z0-9]{6,50}"
 						title="password should consist only of letters of english alphabet or numbers and must be at least 6 symbols long"
-						autoComplete="on"
 						required
 					/>
-					<label htmlFor="passwordInput" className={`${styles.LoginPage_Form_passwordPlaceholder} ${styles.LoginPage_Form_inputPlaceholder}`}>password</label>
-					<div className={styles.LoginPage_Form_NoAccountOption}>
-						<p className={styles.LoginPage_Form_NoAccountOption_message}>
-							No account?
-						</p>
-						<Link to="/register" className={styles.LoginPage_Form_NoAccountOption_link}>
-							sign up!
-						</Link>
-					</div>
-					<button className={styles.LoginPage_Form_showPasswordBtn} onClick={handleShowPasswordClick} ref={showPasswordButton}>
+					<label htmlFor="passwordInput" className={`${styles.RegisterPage_Form_passwordPlaceholder} ${styles.RegisterPage_Form_inputPlaceholder}`}>password</label>
+					<button className={styles.RegisterPage_Form_showPasswordBtn} onClick={handleShowPasswordClick} ref={showPasswordButton}>
 						👁
 					</button>
-					<button type="submit" className={styles.LoginPage_Form_submitBtn}>
-						Sign in
+					<button type="submit" className={styles.RegisterPage_Form_submitBtn}>
+						Sign up
 					</button>
 				</form>
 			</div>

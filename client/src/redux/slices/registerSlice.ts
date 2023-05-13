@@ -47,13 +47,16 @@ const registerSlice = createSlice({
 	name: "register",
 	initialState,
 	reducers:{
-		updateUsername: (state: InitialState, action: {payload:string, type:string})=>{
+		updateUsername: (state: InitialState, action: {payload:string, type:string}): InitialState=>{
 			state.username = action.payload;
 			return state;
 		},
-		updatePassword: (state: InitialState, action: {payload:string, type:string}) =>{
+		updatePassword: (state: InitialState, action: {payload:string, type:string}) : InitialState =>{
 			state.password = action.payload;
 			return state;
+		},
+		clearState: (state: InitialState, action: {type: string}): InitialState =>{
+			return initialState
 		}
 	},
 	extraReducers: builder => {
