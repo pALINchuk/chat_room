@@ -4,13 +4,16 @@ import {Link} from "react-router-dom";
 import {clearState, updatePassword, updateUsername} from "../../redux/slices/loginSlice.ts";
 import {TypedDispatch, useDispatch, useSelector} from "../../hooks.ts";
 import {ErrorMessage} from "../ErrorMessage";
+import {gql, useMutation} from "@apollo/client";
+import {LOGIN_MUTATION} from "../../queries/queries"
 
 
 export const Login: FunctionComponent = () => {
 
 
+	const [login, {data, loading, error, reset}] = useMutation(LOGIN_MUTATION)
+
 	const {username, password}: {username: string, password: string} = useSelector(state=>state.login)
-	const {error, status}: {error: string, status: string} = useSelector(state=>state.login.loginReq)
 	const dispatch : TypedDispatch = useDispatch()
 
 
@@ -19,7 +22,10 @@ export const Login: FunctionComponent = () => {
 	const showPasswordButton: React.RefObject<HTMLButtonElement> = useRef<HTMLButtonElement>(null)
 	const handleSubmit = (e:any) =>{
 		e.preventDefault()
-		//dispatch()
+		login({variables:{
+				username: username,
+				password: password
+		}})
 	}
 	const handleUsernameInput = () =>{
 		if(!usernameInputRef.current) return
@@ -42,6 +48,9 @@ export const Login: FunctionComponent = () => {
 		if(!showPasswordButton.current) return;
 		showPasswordButton.current.classList.toggle(styles.LoginPage_Form_showPasswordBtn__focused)
 	}
+
+
+
 
 	useEffect(() => {
 		return ():void=>{
@@ -80,7 +89,7 @@ export const Login: FunctionComponent = () => {
 						ref={passwordInputRef}
 						onInput={handlePasswordInput}
 						value={password}
-						pattern="[a-zA-Z0-9]{6,50}"
+						pattern="[a-zA-Z0-9]{5,50}"
 						title="password should consist only of letters of english alphabet or numbers and must be at least 6 symbols long"
 						autoComplete="on"
 						required
@@ -102,7 +111,7 @@ export const Login: FunctionComponent = () => {
 					</button>
 				</form>
 			</div>
-			<ErrorMessage message={error} status={status}/>
+			<ErrorMessage message={""} status={""}/>
 		</>
 	);
 };
