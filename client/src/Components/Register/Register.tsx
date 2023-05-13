@@ -1,6 +1,6 @@
-import React, {FunctionComponent, useRef} from 'react';
+import React, {FunctionComponent, useEffect, useRef} from 'react';
 import styles from "./Register.module.sass"
-import {updatePassword, updateUsername} from "../../redux/slices/registerSlice";
+import {clearState, updatePassword, updateUsername} from "../../redux/slices/registerSlice";
 import {TypedDispatch, useDispatch, useSelector} from "../../hooks.ts";
 import {ErrorMessage} from "../ErrorMessage";
 
@@ -41,6 +41,12 @@ export const Register: FunctionComponent = () => {
 		showPasswordButton.current.classList.toggle(styles.RegisterPage_Form_showPasswordBtn__focused)
 	}
 
+	useEffect(() => {
+		return (): void=>{
+			dispatch(clearState())
+		}
+	}, []);
+
 	return (
 		<>
 			<div className={styles.RegisterPage}>
@@ -57,6 +63,7 @@ export const Register: FunctionComponent = () => {
 						value={username}
 						pattern="[A-Za-z0-9]{1,20}"
 						title="username should consist only of letters of english alphabet or numbers and can be at most 20 symbols long"
+						autoComplete='off'
 						required
 					/>
 					<label htmlFor="usernameInput" className={[styles.RegisterPage_Form_usernamePlaceholder, styles.RegisterPage_Form_inputPlaceholder].join(' ')}>
@@ -73,6 +80,7 @@ export const Register: FunctionComponent = () => {
 						value={password}
 						pattern="[a-zA-Z0-9]{6,50}"
 						title="password should consist only of letters of english alphabet or numbers and must be at least 6 symbols long"
+						autoComplete='off'
 						required
 					/>
 					<label htmlFor="passwordInput" className={`${styles.RegisterPage_Form_passwordPlaceholder} ${styles.RegisterPage_Form_inputPlaceholder}`}>password</label>

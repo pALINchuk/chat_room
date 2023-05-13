@@ -75,4 +75,4 @@ const loginSlice = createSlice({
 })
 
 export const loginReducer: Reducer<InitialState> = loginSlice.reducer;
-export const {updateUsername, updatePassword} = loginSlice.actions;
+export const {updateUsername, updatePassword, clearState} = loginSlice.actions;

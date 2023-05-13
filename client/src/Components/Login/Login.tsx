@@ -1,7 +1,7 @@
-import React, {FunctionComponent, useRef} from 'react';
+import React, {FunctionComponent, useEffect, useRef} from 'react';
 import styles from "./Login.module.sass"
 import {Link} from "react-router-dom";
-import {updatePassword, updateUsername} from "../../redux/slices/loginSlice.ts";
+import {clearState, updatePassword, updateUsername} from "../../redux/slices/loginSlice.ts";
 import {TypedDispatch, useDispatch, useSelector} from "../../hooks.ts";
 import {ErrorMessage} from "../ErrorMessage";
 
@@ -19,6 +19,7 @@ export const Login: FunctionComponent = () => {
 	const showPasswordButton: React.RefObject<HTMLButtonElement> = useRef<HTMLButtonElement>(null)
 	const handleSubmit = (e:any) =>{
 		e.preventDefault()
+		//dispatch()
 	}
 	const handleUsernameInput = () =>{
 		if(!usernameInputRef.current) return
@@ -41,6 +42,12 @@ export const Login: FunctionComponent = () => {
 		if(!showPasswordButton.current) return;
 		showPasswordButton.current.classList.toggle(styles.LoginPage_Form_showPasswordBtn__focused)
 	}
+
+	useEffect(() => {
+		return ():void=>{
+			dispatch(clearState())
+		}
+	}, []);
 
 	return (
 		<>

@@ -74,4 +74,4 @@ const registerSlice = createSlice({
 })
 
 export const registerReducer: Reducer<InitialState> = registerSlice.reducer;
-export const {updateUsername, updatePassword} = registerSlice.actions;
+export const {updateUsername, updatePassword, clearState} = registerSlice.actions;
