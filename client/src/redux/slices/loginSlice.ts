@@ -54,7 +54,11 @@ const loginSlice = createSlice({
 		updatePassword: (state: InitialState, action: {payload:string, type:string}) =>{
 			state.password = action.payload;
 			return state;
+		},
+		clearState: (state: InitialState, action: {type:string}) =>{
+			return initialState;
 		}
+
 	},
 	extraReducers: builder => {
 		builder

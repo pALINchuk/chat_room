@@ -1,6 +1,6 @@
 $bg-color-theme-dark: #202124
 $text-colour-theme-dark: #fdfdfd
-$shadow-colour-theme-dark: rgba(0,170,255,0.75)
+$active-colour-theme-dark: rgba(0,170,255,0.75)
 $placeholder-colour-theme-dark: #757575
 
 .LoginPage
@@ -53,7 +53,7 @@ $placeholder-colour-theme-dark: #757575
   transition: all .1s
 
 .LoginPage_Form_username:focus
-  border-bottom-color: $shadow-colour-theme-dark
+  border-bottom-color: $active-colour-theme-dark
 
 
 .LoginPage_Form_password
@@ -72,7 +72,7 @@ $placeholder-colour-theme-dark: #757575
   transition: all .1s
 
 .LoginPage_Form_password:focus
-  border-bottom-color: $shadow-colour-theme-dark
+  border-bottom-color: $active-colour-theme-dark
 
 
 .LoginPage_Form_inputPlaceholder
@@ -106,7 +106,7 @@ $placeholder-colour-theme-dark: #757575
 .LoginPage_Form_username:focus  + .LoginPage_Form_usernamePlaceholder
   transform: translateY(-100%)
   cursor: initial
-  color: $shadow-colour-theme-dark
+  color: $active-colour-theme-dark
 
 .LoginPage_Form_username:not(:placeholder-shown) + .LoginPage_Form_usernamePlaceholder
   transform: translateY(-100%)
@@ -115,11 +115,35 @@ $placeholder-colour-theme-dark: #757575
 .LoginPage_Form_password:focus  + .LoginPage_Form_passwordPlaceholder
   transform: translateY(-100%)
   cursor: initial
-  color: $shadow-colour-theme-dark
+  color: $active-colour-theme-dark
 
 .LoginPage_Form_password:not(:placeholder-shown) + .LoginPage_Form_passwordPlaceholder
   transform: translateY(-100%)
   cursor: default
+
+
+.LoginPage_Form_NoAccountOption
+  grid-row: 4/5
+  grid-column: 1/2
+  height: 100%
+  font-size: 1rem
+  font-family: "Open Sans", sans-serif
+  font-weight: bold
+  display: flex
+  justify-content: center
+  flex-direction: column
+  padding: 0.2rem
+
+.LoginPage_Form_NoAccountOption_message
+  color: $placeholder-colour-theme-dark
+
+.LoginPage_Form_NoAccountOption_link
+  color: $active-colour-theme-dark
+  text-decoration: none
+
+.LoginPage_Form_NoAccountOption_link:hover
+  text-decoration: underline
+
 
 
 
@@ -138,15 +162,15 @@ $placeholder-colour-theme-dark: #757575
   cursor: pointer
 
 .LoginPage_Form_showPasswordBtn:hover
-  color: $shadow-colour-theme-dark
+  color: $active-colour-theme-dark
 
 .LoginPage_Form_showPasswordBtn__focused
-  color: $shadow-colour-theme-dark
+  color: $active-colour-theme-dark
 
 .LoginPage_Form_submitBtn
   grid-row: 4/5
   grid-column: 2/4
-  background: $shadow-colour-theme-dark
+  background: $active-colour-theme-dark
   color: $text-colour-theme-dark
   border: 0
   border-radius: 5px
@@ -159,8 +183,8 @@ $placeholder-colour-theme-dark: #757575
 
 .LoginPage_Form_submitBtn:hover
   background: $bg-color-theme-dark
-  box-shadow: 0px 0px 5px 3px $shadow-colour-theme-dark inset
+  box-shadow: 0px 0px 5px 3px $active-colour-theme-dark inset
 
-
-.LoginPage_Form:has(input:focus)
-  box-shadow: 0px 4px 15px 8px $shadow-colour-theme-dark
+@media screen and (min-width: 700px)
+  .LoginPage_Form:has(input:focus)
+    box-shadow: 0px 4px 15px 8px $active-colour-theme-dark
