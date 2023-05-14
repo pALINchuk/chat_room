@@ -49,7 +49,7 @@ const Mutation = new GraphQLObjectType({
 			resolve: addMessage
 		},
 		register: {
-			type: UserWithTokenType,
+			type: UserType,
 			args: {
 				username: {type: new GraphQLNonNull(GraphQLString)},
 				password: {type: new GraphQLNonNull(GraphQLString)}
@@ -57,7 +57,7 @@ const Mutation = new GraphQLObjectType({
 			resolve: register
 		},
 		login:{
-			type: TokenType,
+			type: UserType,
 			args: {
 				username: {type: GraphQLString},
 				password: {type: GraphQLString}

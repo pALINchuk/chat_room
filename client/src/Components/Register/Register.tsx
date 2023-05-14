@@ -3,14 +3,18 @@ import styles from "./Register.module.sass"
 import {clearState, updatePassword, updateUsername} from "../../redux/slices/registerSlice";
 import {TypedDispatch, useDispatch, useSelector} from "../../hooks.ts";
 import {ErrorMessage} from "../ErrorMessage";
+import {useMutation} from "@apollo/client";
+import {REGISTER_MUTATION} from "../../queries/queries.ts";
+import {useNavigate} from "react-router-dom";
 
 
 export const Register: FunctionComponent = () => {
 
 
 	const {username, password}: {username: string, password: string} = useSelector(state=>state.register)
-	const {error, status}: {error: string, status: string} = useSelector(state=>state.register.registerReq)
-	const dispatch: TypedDispatch = useDispatch()
+	const [register,{data,loading,error,reset}] = useMutation(REGISTER_MUTATION);
+	const dispatch: TypedDispatch = useDispatch();
+	const navigate = useNavigate();
 
 
 	const passwordInputRef : React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
@@ -18,6 +22,14 @@ export const Register: FunctionComponent = () => {
 	const showPasswordButton: React.RefObject<HTMLButtonElement> = useRef<HTMLButtonElement>(null)
 	const handleSubmit = (e:any) =>{
 		e.preventDefault()
+		register({
+			variables:{
+				username: username,
+				password: password
+			}
+		}).then(()=>{
+			navigate('/login')
+		})
 	}
 	const handleUsernameInput = () =>{
 		if(!usernameInputRef.current) return
@@ -61,7 +73,7 @@ export const Register: FunctionComponent = () => {
 						ref={usernameInputRef}
 						onInput={handleUsernameInput}
 						value={username}
-						pattern="[A-Za-z0-9]{1,20}"
+						pattern="[A-Za-z0-9_]{1,20}"
 						title="username should consist only of letters of english alphabet or numbers and can be at most 20 symbols long"
 						autoComplete='off'
 						required
@@ -84,7 +96,7 @@ export const Register: FunctionComponent = () => {
 						required
 					/>
 					<label htmlFor="passwordInput" className={`${styles.RegisterPage_Form_passwordPlaceholder} ${styles.RegisterPage_Form_inputPlaceholder}`}>password</label>
-					<button className={styles.RegisterPage_Form_showPasswordBtn} onClick={handleShowPasswordClick} ref={showPasswordButton}>
+					<button type="button" className={styles.RegisterPage_Form_showPasswordBtn} onClick={handleShowPasswordClick} ref={showPasswordButton}>
 						👁
 					</button>
 					<button type="submit" className={styles.RegisterPage_Form_submitBtn}>
@@ -92,7 +104,7 @@ export const Register: FunctionComponent = () => {
 					</button>
 				</form>
 			</div>
-			<ErrorMessage message={error} status={status}/>
+			{error?.message ? <ErrorMessage message={error.message} status={status}/> : ''}
 		</>
 	);
 };

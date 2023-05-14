@@ -4,6 +4,9 @@ import logger from "morgan";
 import {graphqlHTTP} from "express-graphql";
 import mongoose from "mongoose"
 import dotenv from "dotenv"
+import cors from "cors"
+import cookieParser from "cookie-parser"
+import session from "express-session"
 import {schema} from "./schema/schema";
 import {authMiddleware} from "./auth/authMiddleware";
 
@@ -15,9 +18,12 @@ dotenv.config()
 
 
 app.use(bodyParser());
+app.use(cookieParser());
 app.use(logger('dev'));
-
-
+app.use(cors({
+	origin: "http://localhost:3001",
+	credentials: true
+}))
 
 
 
@@ -36,13 +42,14 @@ mongoose.connection.once('open', ()=>{
 
 app.use(authMiddleware)
 app.use('/graphql',
-	graphqlHTTP((req:any)=>({
+	graphqlHTTP((req: any, res: Response)=>({
 		schema: schema,
 		graphiql: true,
 		context:{
 			isAuth: req.isAuth,
 			user: req.user,
-			error: req.error
+			error: req.error,
+			res: res
 		}
 	}))
 )

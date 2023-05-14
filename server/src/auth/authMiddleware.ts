@@ -2,9 +2,9 @@ import {verifyToken} from "../utils";
 
 
 export const authMiddleware = (req,res,next) =>{
-	const authHeader = req.get('Authorization')
+	const authJWT = req.cookies['auth'] ?? undefined
 
-	if (!authHeader) {
+	if (!authJWT) {
 		req.error = "No authentication header found."
 		req.isAuth = false
 		return next()
@@ -12,8 +12,7 @@ export const authMiddleware = (req,res,next) =>{
 
 	let decoded;
 	try{
-		const token = authHeader.split(' ')[1]
-		decoded = verifyToken(token)
+		decoded = verifyToken(authJWT)
 	} catch (err) {
 		req.isAuth = false
 		req.error = err.message

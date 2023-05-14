@@ -13,6 +13,7 @@ export const ErrorMessage: FunctionComponent<OwnProps> = (props: OwnProps) =>{
 	const errorMessageRef : React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
 
 	const toggleMessageVisibility = (message: string, visible: boolean) : void =>{
+
 		if(!errorMessageRef.current)
 			return
 		if(!isVisible){
@@ -31,7 +32,8 @@ export const ErrorMessage: FunctionComponent<OwnProps> = (props: OwnProps) =>{
 
 	useEffect(()=>{
 		if(!message && errorMessageRef.current){
-			errorMessageRef.current.style.display = "none"
+			errorMessageRef.current.classList.add(styles.ErrorMessage__hidden)
+			errorMessageRef.current.classList.remove(styles.ErrorMessage__visible)
 			setIsVisible(false)
 			return
 		}

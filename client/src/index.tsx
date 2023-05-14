@@ -3,13 +3,17 @@ import {App} from './Components/App'
 import './index.sass'
 import {Provider} from "react-redux";
 import {store} from "./redux/store.ts";
-import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import {ApolloClient, ApolloProvider, createHttpLink, InMemoryCache} from "@apollo/client";
 
 const API_URI: string = 'http://localhost:3000/graphql'
 
+const link = createHttpLink({
+	uri: API_URI,
+	credentials: 'include'
+})
 
 const client = new ApolloClient({
-	uri: API_URI,
+	link: link,
 	cache: new InMemoryCache()
 })
 

@@ -1,6 +1,6 @@
-import React, {FunctionComponent, useEffect, useRef} from 'react';
+import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
 import styles from "./Login.module.sass"
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {clearState, updatePassword, updateUsername} from "../../redux/slices/loginSlice.ts";
 import {TypedDispatch, useDispatch, useSelector} from "../../hooks.ts";
 import {ErrorMessage} from "../ErrorMessage";
@@ -12,9 +12,9 @@ export const Login: FunctionComponent = () => {
 
 
 	const [login, {data, loading, error, reset}] = useMutation(LOGIN_MUTATION)
-
 	const {username, password}: {username: string, password: string} = useSelector(state=>state.login)
-	const dispatch : TypedDispatch = useDispatch()
+	const dispatch : TypedDispatch = useDispatch();
+	const navigate = useNavigate();
 
 
 	const passwordInputRef : React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
@@ -25,7 +25,9 @@ export const Login: FunctionComponent = () => {
 		login({variables:{
 				username: username,
 				password: password
-		}})
+		}}).then(()=>{
+			navigate('/')
+		})
 	}
 	const handleUsernameInput = () =>{
 		if(!usernameInputRef.current) return
@@ -58,6 +60,7 @@ export const Login: FunctionComponent = () => {
 		}
 	}, []);
 
+
 	return (
 		<>
 			<div className={styles.LoginPage}>
@@ -72,7 +75,7 @@ export const Login: FunctionComponent = () => {
 						ref={usernameInputRef}
 						onInput={handleUsernameInput}
 						value={username}
-						pattern="[A-Za-z0-9]{1,20}"
+						pattern="[A-Za-z0-9_]{1,20}"
 						title="username should consist only of letters of english alphabet or numbers and can be at most 20 symbols long"
 						autoComplete="on"
 						required
@@ -103,7 +106,7 @@ export const Login: FunctionComponent = () => {
 							sign up!
 						</Link>
 					</div>
-					<button className={styles.LoginPage_Form_showPasswordBtn} onClick={handleShowPasswordClick} ref={showPasswordButton}>
+					<button type="button" className={styles.LoginPage_Form_showPasswordBtn} onClick={handleShowPasswordClick} ref={showPasswordButton}>
 						👁
 					</button>
 					<button type="submit" className={styles.LoginPage_Form_submitBtn}>
@@ -111,7 +114,7 @@ export const Login: FunctionComponent = () => {
 					</button>
 				</form>
 			</div>
-			<ErrorMessage message={""} status={""}/>
+			{error?.message ? <ErrorMessage message={error?.message} status={""}/> : ''}
 		</>
 	);
 };

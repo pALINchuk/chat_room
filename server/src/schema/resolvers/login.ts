@@ -3,7 +3,7 @@ import {IUser, User} from "../../models";
 import {signToken, verifyPassword} from "../../utils";
 
 
-export const login = async (parent, args: {username: string, password: string}) =>{
+export const login = async (parent, args: {username: string, password: string}, context) =>{
 	const {username, password}: {username: string, password: string} = args;
 
 	const result: HydratedDocument<IUser> = await User.findOne({username: username})
@@ -16,7 +16,13 @@ export const login = async (parent, args: {username: string, password: string}) 
 		throw new Error("Invalid password");
 	}
 
-	return {
-		token: signToken({userId: username})
-	}
+	const token = await signToken({userId: username})
+	console.log(context.isAuth)
+	context.res.cookie("auth", token, {
+		httpOnly: true,
+		expires: new Date(Date.now() + 900000),
+		sameSite: true
+	})
+
+	return result
 }
