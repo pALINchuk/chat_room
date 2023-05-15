@@ -54,6 +54,10 @@ app.use('/graphql',
 	}))
 )
 
+app.get('/isAuthorized', (req:any,res:Response)=>{
+	res.json({isAuth: req.isAuth})
+})
+
 app.get('/',(req : Request,res : Response)=>{
 	res.send('Express API')
 })
