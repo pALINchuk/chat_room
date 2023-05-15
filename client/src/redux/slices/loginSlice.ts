@@ -12,10 +12,6 @@ type InitialState = {
 	}
 }
 
-// type AttemptLoginParams = {
-// 	username: string,
-// 	password: string
-// }
 
 const initialState: InitialState = {
 	username: '',
@@ -29,19 +25,6 @@ const initialState: InitialState = {
 
 
 
-// export const attemptLogin = createAsyncThunk(
-// 	"login/attempt",
-// 	async (params: AttemptLoginParams, {rejectWithValue}) =>{
-// 		const {username, password}:AttemptLoginParams = params;
-// 		try{
-// 			//request
-// 			return {};
-// 		}catch(err: any){
-// 			//error handling
-// 			return rejectWithValue(err.message)
-// 		}
-// 	}
-// )
 
 const loginSlice = createSlice({
 	name: "login",
@@ -60,18 +43,6 @@ const loginSlice = createSlice({
 		}
 
 	}
-	// extraReducers: builder => {
-	// 	builder
-	// 		.addCase(attemptLogin.pending, (state: InitialState, action)=>{
-	// 			state.loginReq.status = "pending"
-	// 		})
-	// 		.addCase(attemptLogin.fulfilled, (state: InitialState, action)=>{
-	// 			state.loginReq.status = "resolved"
-	// 		})
-	// 		.addCase(attemptLogin.rejected, (state: InitialState, action)=>{
-	// 			state.loginReq.status = "rejected"
-	// 		})
-	// }
 })
 
 export const loginReducer: Reducer<InitialState> = loginSlice.reducer;

@@ -1,37 +1,48 @@
 import styles from './App.module.sass'
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 import {ErrorPage} from "../ErrorPage";
 import {Login} from "../Login";
 import {Register} from "../Register";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {PrivateRoutes} from "../PrivateRoutes";
+import {useDispatch, useSelector} from "../../hooks.ts";
+import {checkAuth, clearState} from "../../redux/slices/globalSlice.ts";
 
 
-const API_ISAUTH_URL = 'http://localhost:3000/isAuthorized'
+
 
 
 
 
 export const App = () => {
 
-    const [isAuth, setIsAuth] = useState(false)
-    const requireAuth = async () =>{
-        const response = await fetch(API_ISAUTH_URL)
-            .then(res => res.json())
-            .then((data:{isAuth:boolean})=>setIsAuth(data.isAuth))
+    const {isAuth, loading} = useSelector(state=>state.global)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(checkAuth())
+        return () =>{
+            dispatch(clearState({}))
+        }
+    }, []);
+
+    if(loading){
+        return <div>loading...</div>
     }
-
-    requireAuth()
-
-
 
     return (
         <>
             <Router>
                 <Routes>
-                    <Route path="/" element={"index"}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Register/>}/>
-                    <Route path="*" element={<ErrorPage/>}/>
+                    <Route element={<PrivateRoutes auth={isAuth}/>}>
+                        <Route path="/chat" element ={"index"}/>
+                    </Route>
+                    <Route path="/login" element={!isAuth ? <Login/> : <Navigate to="/chat" replace />}/>
+                    <Route path="/register" element={!isAuth ?<Register/> : <Navigate to="/chat" replace />}/>
+                    <Route path="/NotFound" element={<ErrorPage/>}/>
+
+                    <Route path="/" element={<Navigate to="/chat" replace/>}/>
+                    <Route path="*" element={<Navigate to="/NotFound" replace/>}/>
                 </Routes>
             </Router>
         </>

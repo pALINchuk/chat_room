@@ -4,12 +4,12 @@ import {Link, useNavigate} from "react-router-dom";
 import {clearState, updatePassword, updateUsername} from "../../redux/slices/loginSlice.ts";
 import {TypedDispatch, useDispatch, useSelector} from "../../hooks.ts";
 import {ErrorMessage} from "../ErrorMessage";
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from "@apollo/client";
 import {LOGIN_MUTATION} from "../../queries/queries"
+import {updateIsAuth} from "../../redux/slices/globalSlice.ts";
 
 
 export const Login: FunctionComponent = () => {
-
 
 	const [login, {data, loading, error, reset}] = useMutation(LOGIN_MUTATION)
 	const {username, password}: {username: string, password: string} = useSelector(state=>state.login)
@@ -26,7 +26,10 @@ export const Login: FunctionComponent = () => {
 				username: username,
 				password: password
 		}}).then(()=>{
-			navigate('/')
+			dispatch(updateIsAuth(true))
+			navigate('/chat', {
+				replace: true
+			})
 		})
 	}
 	const handleUsernameInput = () =>{
@@ -58,7 +61,7 @@ export const Login: FunctionComponent = () => {
 		return ():void=>{
 			dispatch(clearState())
 		}
-	}, []);
+	}, [])
 
 
 	return (
