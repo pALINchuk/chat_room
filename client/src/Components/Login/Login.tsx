@@ -22,14 +22,15 @@ export const Login: FunctionComponent = () => {
 	const showPasswordButton: React.RefObject<HTMLButtonElement> = useRef<HTMLButtonElement>(null)
 	const handleSubmit = (e:any) =>{
 		e.preventDefault()
-		login({variables:{
+		login({
+			variables:{
 				username: username,
 				password: password
-		}}).then(()=>{
-			dispatch(updateIsAuth(true))
-			navigate('/chat', {
-				replace: true
-			})
+			}
+		})
+			.then(()=>{
+				dispatch(updateIsAuth(true))
+				navigate('/chat')
 		})
 	}
 	const handleUsernameInput = () =>{
