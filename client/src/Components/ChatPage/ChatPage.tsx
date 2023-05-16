@@ -6,7 +6,7 @@ export const ChatPage = () => {
 	return (
 		<>
 			<div className={styles.ChatPage}>
-				CHAAAAAAAAAT
+				this is chatPage
 			</div>
 			<ErrorMessage message={""} status={""}/>
 		</>
