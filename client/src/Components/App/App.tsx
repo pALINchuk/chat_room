@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import {PrivateRoutes} from "../PrivateRoutes";
 import {useDispatch, useSelector} from "../../hooks.ts";
 import {checkAuth, clearState} from "../../redux/slices/globalSlice.ts";
+import {LoadingScreen} from "../LoadingScreen";
 
 
 
@@ -27,7 +28,7 @@ export const App = () => {
     }, []);
 
     if(loading){
-        return <div>loading...</div>
+        return <LoadingScreen/>
     }
 
     return (
