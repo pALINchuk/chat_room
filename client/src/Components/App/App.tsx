@@ -8,6 +8,7 @@ import {PrivateRoutes} from "../PrivateRoutes";
 import {useDispatch, useSelector} from "../../hooks.ts";
 import {checkAuth, clearState} from "../../redux/slices/globalSlice.ts";
 import {LoadingScreen} from "../LoadingScreen";
+import {ChatPage} from "../ChatPage";
 
 
 
@@ -36,7 +37,9 @@ export const App = () => {
             <Router>
                 <Routes>
                     <Route element={<PrivateRoutes auth={isAuth}/>}>
-                        <Route path="/chat" element ={"index"}/>
+                        <Route path="/chat" element ={
+                            <ChatPage/>
+                        }/>
                     </Route>
                     <Route path="/login" element={!isAuth ? <Login/> : <Navigate to="/chat" replace />}/>
                     <Route path="/register" element={!isAuth ?<Register/> : <Navigate to="/chat" replace />}/>
