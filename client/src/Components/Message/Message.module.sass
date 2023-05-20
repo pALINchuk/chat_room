@@ -7,7 +7,10 @@ $lighter-gray-colour-theme-dark: #2b2d30
 .Message
   font-family: "Open Sans", sans-serif
   max-width: 70%
-  width: max-content
+  display: flex
+  flex-flow: column
+  word-break: break-all
+
 
 
 .Message__right
@@ -25,6 +28,7 @@ $lighter-gray-colour-theme-dark: #2b2d30
 
 .Message_Content
   display: flex
+  overflow-wrap: break-word
 
 .Message_Content__right
   justify-content: end
@@ -32,4 +36,5 @@ $lighter-gray-colour-theme-dark: #2b2d30
 .Message_Content_text
   color: $text-colour-theme-dark
   font-size: 1.1rem
+  overflow-wrap: break-word
 

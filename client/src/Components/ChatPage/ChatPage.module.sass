@@ -5,122 +5,166 @@ $light-gray-colour-theme-dark: #757575
 $lighter-gray-colour-theme-dark: #2b2d30
 
 
+$header-height: 8vh
+$form-height: 8vh
+$chat-height-desktop: 94vh
+
+
+
+
+
 .ChatPage
-  width: 100%
-  height: 100%
+  width: 100vw
+  height: 100vh
   display: flex
   justify-content: center
   align-items: center
   background: $bg-color-theme-dark
+
 
 .Chat
   box-sizing: content-box
+  width: 100vw
   height: 100vh
-  width: 100%
+  display: flex
+  flex-flow: column
   border: 2px solid $light-gray-colour-theme-dark
-  display: grid
-  grid-template-columns: 1fr
-  grid-template-rows: 8vh 84vh 8vh
-  background: $bg-color-theme-dark
 
+  *
+    box-sizing: border-box
 
 .Chat_Header
-  height: 100%
   width: 100%
-  display: grid
-  grid-template-columns: 8vh 1fr 8vh
-  grid-template-rows: 1fr
-
-.Chat_Header_LogoutBtn
-  width: 100%
-  height: 100%
-  grid-column: 3/4
-  border: none
-  background: transparent
-  border-radius: 30px
-  cursor: pointer
-  color: $text-colour-theme-dark
-
-.Chat_Header_title
-  width: 100%
-  height: 100%
-  grid-column: 2/3
+  height: $header-height
   display: flex
-  justify-content: center
-  align-items: center
-  font-family: Poppins, sans-serif
-  color: $text-colour-theme-dark
+  flex-flow: row
+  border-bottom: 2px solid $light-gray-colour-theme-dark
 
-.Chat_Header_BackBtn
+
+.Chat_MessageForm
+  background: $lighter-gray-colour-theme-dark
+  width: 100%
+  display: flex
+  flex-flow: row
+  height: $form-height
+  border-top: 2px solid $light-gray-colour-theme-dark
+
+.Chat_Header_back
+  width: $header-height
+  height: $header-height
   display: flex
   justify-content: center
   align-items: center
   text-decoration: none
+  font-size: 2rem
   font-weight: bold
-  font-size: 1.5rem
+  color: $light-gray-colour-theme-dark
+  transition: all .1s
+
+.Chat_Header_back:hover
   color: $text-colour-theme-dark
 
-.Chat_Controls
-  width: 100%
-  height: 100%
-  padding: 0
-  display: grid
-  grid-template-columns: 1fr 8vh
-  background: $lighter-gray-colour-theme-dark
+.Chat_Header_title
+  height: $header-height
+  width: calc(100vw - $header-height - $header-height)
+  display: flex
+  justify-content: center
+  align-items: center
+  color: $light-gray-colour-theme-dark
+  cursor: default
+  transition: all .1s
 
-.Chat_Controls_Message
-  grid-column: 1/2
-  height: 8vh
-  padding: 0.5vh
+.Chat_Header_title:hover
+  color: $text-colour-theme-dark
 
-
-.Chat_Controls_textInput
-  height: 7vh
-  width: calc(100% - 1vh)
-  border: 2px solid $light-gray-colour-theme-dark
-  border-radius: calc(20px - 0.5vh)
-  padding: .5rem
-  outline: none
-  resize: none
-  font-family: "Open Sans", sans-serif
+.Chat_Header_logout
+  height: $header-height
+  width: $header-height
   background: none
-  color: $text-colour-theme-dark
-
-.Chat_Controls_sendMessage
-  grid-column: 2/3
   border: none
-  background: none
+  outline: none
   cursor: pointer
+  display: flex
+  justify-content: center
+  align-items: center
+  color: $light-gray-colour-theme-dark
+  transition: all .1s
+
+.Chat_Header_logout:hover
   color: $text-colour-theme-dark
+
+.Chat_MessageForm_textInput
+  margin: 0.5vh
+  height: calc($form-height - 0.5vh - 0.5vh - 1px)
+  width: calc( 100vw - $form-height - 0.5vh - 0.5vh)
+  border-radius: calc(10px - 0.5vh)
+  border: 2px solid $light-gray-colour-theme-dark
+  outline: none
+  color: $text-colour-theme-dark
+  padding: 0.5em
+  font-family: "Open Sans", sans-serif
+  font-size: 0.8rem
+  background: none
+  resize: none
+
+.Chat_MessageForm_sendButton
+  height: $form-height
+  width: $form-height
+  cursor: pointer
+  background: none
+  border: none
+  outline: none
+  color: $text-colour-theme-dark
+  margin: 0
+
 
 .Chat_Feed
-  border-bottom: 2px solid $light-gray-colour-theme-dark
-  border-top: 2px solid $light-gray-colour-theme-dark
-  padding: 0 1em 1em 1em
-  height: 84vh
-  overflow: auto
-
-.Chat_Feed_MessageBlock
-  display: flex
-  height: 100%
+  background: none
   width: 100%
-  flex-flow: column
-  justify-content: end
+  height: calc(100vh - $header-height - $form-height)
+  display: flex
+  flex-direction: column-reverse
+  padding: 1vw
+  overflow-y: auto
+
+.Chat_Feed::-webkit-scrollbar
+  display: none
+
+
+
+.Chat_Feed_Messages
+  background: none
+  height: min-content
+  display: flex
+  flex-direction: column
+
 
 @media screen and (min-width: 700px)
   .Chat
-    height: 94vh
-    width: 40%
-    border-radius: 20px
-    grid-template-rows: 8vh 78vh 8vh
-
-  .Chat_Controls
-    border-radius: 0 0 20px 20px
-
+    width: 40vw
+    height: $chat-height-desktop
+    border-radius: 10px
   .Chat_Feed
-    height: 78vh
+    height: calc($chat-height-desktop - $header-height - $form-height)
+  .Chat_Header
+    border-radius: 10px 10px 0 0
+  .Chat_MessageForm
+    border-radius: 0 0 10px 10px
+  .Chat_Header_title
+    width: calc(40vw - $header-height - $header-height)
+  .Chat_MessageForm_textInput
+    width: calc( 40vw - $form-height - 0.5vh - 0.5vh)
 
 
+  .Chat_Feed::-webkit-scrollbar
+    width: 7px
+    display: initial
+
+
+
+  .Chat_Feed::-webkit-scrollbar-thumb
+    background-color: #454545
+    border-radius: 1000px
 
 
 
