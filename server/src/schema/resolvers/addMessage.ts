@@ -15,7 +15,7 @@ export const addMessage = async (parent, args:{text: string, post_date: string, 
 
 	const user = await User.findById(userId)
 
-	console.log(newMessage)
+
 	pubSub.publish(NEW_MESSAGE_EVENT, {newMessage: newMessage})
 
 	return newMessage

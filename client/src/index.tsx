@@ -18,7 +18,7 @@ const httpLink = createHttpLink({
 
 
 const wsLink = new GraphQLWsLink(createClient({
-	url: SUBSCRIPTION_URL
+	url: SUBSCRIPTION_URL,
 }))
 
 const splitLink = split(

@@ -57,7 +57,6 @@ app.use('/graphql',
 )
 
 app.get('/isAuthorized', (req:any,res:Response)=>{
-	console.log(req.user)
 	res.json({isAuth: req.isAuth, user: req.user})
 })
 

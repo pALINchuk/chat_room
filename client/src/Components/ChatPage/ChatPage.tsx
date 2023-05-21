@@ -14,19 +14,23 @@ import {setMessages, updateContentValue, updateMessages} from "../../redux/slice
 
 type MessageType = {
 	user: string,
-	text: string
+	text: string,
+	post_on_date: string,
+	userID: string
 }
 
 const generateMessages = (messages:any, thisUser:string) =>{
 	return messages.map((message: MessageType) =>(
-		<Message author={message.user} text={message.text} isClient={message.user === thisUser}/>
+		<Message author={message.user} text={message.text} isClient={message.userID === thisUser}/>
 	))
 }
 
 
 export const ChatPage = () => {
 
-	const {data, loading} = useSubscription(NEW_MESSAGES_SUBSCRIBE)
+	const {data, loading} = useSubscription(NEW_MESSAGES_SUBSCRIBE, {
+		// onData: ()=>handleNewData()
+	})
 	const messageQuery = useQuery(MESSAGES_QUERY)
 	const [addMessage, addMessageResult] = useMutation(ADD_MESSAGE)
 	const {messages, contentValue} = useSelector(state=>state.chat)
@@ -37,12 +41,15 @@ export const ChatPage = () => {
 
 	const handleSubmit = (event:React.FormEvent<HTMLFormElement>) =>{
 		event.preventDefault()
+		console.log("try mutation")
 		addMessage({
 			variables:{
 				text: contentValue,
 				post_date: Date.now().toString(),
 				userId: userId
 			}
+		}).then(()=>{
+				dispatch(updateContentValue(''))
 		})
 
 	}
@@ -52,7 +59,9 @@ export const ChatPage = () => {
 		dispatch(updateContentValue(contentRef.current.value))
 	}
 
+
 	useEffect(()=>{
+		console.log("status changes")
 		if(!messageQuery.loading){
 			console.log(messageQuery.data)
 			dispatch(
@@ -83,7 +92,7 @@ export const ChatPage = () => {
 			))
 			console.log(data)
 		}
-	}, [loading]);
+	}, [data]);
 
 	return (
 		<>
@@ -101,7 +110,7 @@ export const ChatPage = () => {
 					</header>
 					<div className={styles.Chat_Feed}>
 						<div className={styles.Chat_Feed_Messages}>
-							{messages.length ? React.Children.toArray(generateMessages(messages, "admin")) : <></>}
+							{messages.length ? React.Children.toArray(generateMessages(messages, userId)) : <></>}
 						</div>
 					</div>
 					<form onSubmit={handleSubmit} className={styles.Chat_MessageForm}>
