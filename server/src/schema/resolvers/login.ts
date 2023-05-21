@@ -16,7 +16,7 @@ export const login = async (parent, args: {username: string, password: string}, 
 		throw new Error("Invalid password");
 	}
 
-	const token = await signToken({userId: username})
+	const token = await signToken({userId: result._id})
 	console.log(context.isAuth)
 	context.res.cookie("auth", token, {
 		httpOnly: true,

@@ -1,4 +1,4 @@
-import {hashPassword, signToken} from "../../utils";
+import {hashPassword} from "../../utils";
 import {HydratedDocument} from "mongoose";
 import {IUser, User} from "../../models";
 

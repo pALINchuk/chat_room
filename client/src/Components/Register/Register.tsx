@@ -90,7 +90,7 @@ export const Register: FunctionComponent = () => {
 						ref={passwordInputRef}
 						onInput={handlePasswordInput}
 						value={password}
-						pattern="[a-zA-Z0-9]{6,50}"
+						pattern="[a-zA-Z0-9]{5,50}"
 						title="password should consist only of letters of english alphabet or numbers and must be at least 6 symbols long"
 						autoComplete='off'
 						required

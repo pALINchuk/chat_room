@@ -4,3 +4,4 @@ export * from "./addMessage"
 export * from "./message"
 export * from "./user"
 export * from "./messages"
+export * from './newMessage'

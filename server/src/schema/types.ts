@@ -16,21 +16,21 @@ export const UserType: GraphQLObjectType = new GraphQLObjectType({
 	})
 })
 
-export const UserWithTokenType: GraphQLObjectType = new GraphQLObjectType({
-	name: 'UserWithToken',
-	fields: () =>({
-		id: {type: GraphQLID},
-		username: {type: GraphQLString},
-		password: {type: GraphQLString},
-		messages: {
-			type: new GraphQLList(MessageType),
-			resolve(parent, args){
-				return Message.find({userId: parent.id})
-			}
-		},
-		token: {type: GraphQLString}
-	})
-})
+// export const UserWithTokenType: GraphQLObjectType = new GraphQLObjectType({
+// 	name: 'UserWithToken',
+// 	fields: () =>({
+// 		id: {type: GraphQLID},
+// 		username: {type: GraphQLString},
+// 		password: {type: GraphQLString},
+// 		messages: {
+// 			type: new GraphQLList(MessageType),
+// 			resolve(parent, args){
+// 				return Message.find({userId: parent.id})
+// 			}
+// 		},
+// 		token: {type: GraphQLString}
+// 	})
+// })
 
 export const MessageType: GraphQLObjectType = new GraphQLObjectType({
 	name: 'Message',
@@ -47,6 +47,8 @@ export const MessageType: GraphQLObjectType = new GraphQLObjectType({
 
 	})
 })
+
+
 
 
 export const TokenType: GraphQLObjectType = new GraphQLObjectType({

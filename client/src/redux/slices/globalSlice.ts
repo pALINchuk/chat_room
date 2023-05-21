@@ -16,7 +16,7 @@ export const checkAuth = createAsyncThunk(
 			if (data.isAuth == undefined){
 				return rejectWithValue("no authorization data from the server")
 			}
-			return data.isAuth
+			return data
 		}catch (e: any){
 			return rejectWithValue(e?.message ?? "unknown error")
 		}
@@ -29,11 +29,13 @@ export const checkAuth = createAsyncThunk(
 
 type InitialState = {
 	isAuth: boolean
+	userId: string
 	loading: boolean
 }
 
 const initialState = {
 	isAuth: false,
+	userId: '',
 	loading: true
 }
 
@@ -43,6 +45,10 @@ const globalSlice:Slice<InitialState> = createSlice({
 	reducers:{
 		updateIsAuth(state: InitialState, action: {type: string, payload: boolean}) : InitialState{
 			state.isAuth = action.payload
+			return state
+		},
+		updateUserId(state: InitialState, action: {type: string, payload: string}) : InitialState{
+			state.userId = action.payload
 			return state
 		},
 		updateLoading(state: InitialState, action: {type: string, payload: boolean}) : InitialState{
@@ -56,7 +62,9 @@ const globalSlice:Slice<InitialState> = createSlice({
 	extraReducers: builder => {
 		builder
 			.addCase(checkAuth.fulfilled, (state, action)=>{
-				state.isAuth = action.payload
+				state.isAuth = action.payload.isAuth
+				state.userId = action.payload.user?.userId
+
 				state.loading = false
 			})
 			.addCase(checkAuth.pending, (state, action)=>{
@@ -67,6 +75,6 @@ const globalSlice:Slice<InitialState> = createSlice({
 })
 
 
-export const {updateIsAuth, clearState} = globalSlice.actions;
+export const {updateIsAuth, updateUserId, clearState} = globalSlice.actions;
 
 export const globalReducer: Reducer<InitialState> = globalSlice.reducer;

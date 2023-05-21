@@ -1,12 +1,14 @@
 import express, {Express, Request, Response} from 'express';
-import bodyParser, {BodyParser} from "body-parser";
+import bodyParser from "body-parser";
 import logger from "morgan";
 import {graphqlHTTP} from "express-graphql";
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cors from "cors"
 import cookieParser from "cookie-parser"
-import session from "express-session"
+import ws from "ws"
+import {useServer} from "graphql-ws/lib/use/ws";
+import {execute, subscribe} from "graphql";
 import {schema} from "./schema/schema";
 import {authMiddleware} from "./auth/authMiddleware";
 
@@ -55,7 +57,8 @@ app.use('/graphql',
 )
 
 app.get('/isAuthorized', (req:any,res:Response)=>{
-	res.json({isAuth: req.isAuth})
+	console.log(req.user)
+	res.json({isAuth: req.isAuth, user: req.user})
 })
 
 app.get('/',(req : Request,res : Response)=>{
@@ -63,6 +66,39 @@ app.get('/',(req : Request,res : Response)=>{
 })
 
 
+function configureWSServer(server: any){
+	const WSS = new ws.Server({
+		server,
+		path: "/subscriptions"
+	})
+
+	useServer({
+		schema,
+		execute,
+		subscribe,
+			onConnect: (ctx) => {
+				console.log('Connect');
+			},
+			onSubscribe: (ctx, msg) => {
+				console.log('Subscribe');
+			},
+			onNext: (ctx, msg, args, result) => {
+				console.debug('Next');
+			},
+			onError: (ctx, msg, errors) => {
+				console.error('Error');
+			},
+			onComplete: (ctx, msg) => {
+				console.log('Complete');
+			},
+	},
+	WSS)
+
+	console.log('websocket server is listening on /subscriptions')
+
+}
 
 
-export {app}
+
+
+export {app, configureWSServer}

@@ -7,9 +7,9 @@ import {
 	GraphQLList,
 	GraphQLNonNull
 } from "graphql"
-import {addMessage, message, messages, register, user} from "./resolvers";
+import {addMessage, message, messages, register, user, newMessage} from "./resolvers";
 import {login} from "./resolvers";
-import {MessageType, TokenType, UserType, UserWithTokenType} from "./types";
+import {MessageType, TokenType, UserType} from "./types";
 
 
 
@@ -29,7 +29,7 @@ const RootQuery = new GraphQLObjectType({
 			resolve: user
 		},
 		messages:{
-			type: GraphQLList(MessageType),
+			type: new GraphQLList(MessageType),
 			resolve: messages
 		}
 
@@ -67,10 +67,19 @@ const Mutation = new GraphQLObjectType({
 	}
 })
 
-
+const Subscription = new GraphQLObjectType({
+	name: 'Subscription',
+	fields:{
+		newMessage:{
+			type: new GraphQLNonNull(MessageType),
+			subscribe: newMessage
+		}
+	}
+})
 
 
 export const schema : GraphQLSchema = new GraphQLSchema({
 	query: RootQuery,
-	mutation: Mutation
+	mutation: Mutation,
+	subscription: Subscription
 })

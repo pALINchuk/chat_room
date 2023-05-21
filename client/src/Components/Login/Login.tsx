@@ -6,7 +6,7 @@ import {TypedDispatch, useDispatch, useSelector} from "../../hooks.ts";
 import {ErrorMessage} from "../ErrorMessage";
 import {useMutation} from "@apollo/client";
 import {LOGIN_MUTATION} from "../../queries/queries"
-import {updateIsAuth} from "../../redux/slices/globalSlice.ts";
+import {updateIsAuth, updateUserId} from "../../redux/slices/globalSlice.ts";
 
 
 export const Login: FunctionComponent = () => {
@@ -28,9 +28,15 @@ export const Login: FunctionComponent = () => {
 				password: password
 			}
 		})
-			.then(()=>{
+			.then((response)=>{
+				console.log(response)
+
 				dispatch(updateIsAuth(true))
-				navigate('/chat')
+				return response
+
+		}).then((response)=>{
+			dispatch(updateUserId(response.data?.login?.id))
+			navigate('/chat')
 		})
 	}
 	const handleUsernameInput = () =>{
