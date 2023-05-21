@@ -60,6 +60,11 @@ app.get('/isAuthorized', (req:any,res:Response)=>{
 	res.json({isAuth: req.isAuth, user: req.user})
 })
 
+app.get('/logout', (req:any,res:Response)=>{
+	res.clearCookie("auth")
+	res.send('')
+})
+
 app.get('/',(req : Request,res : Response)=>{
 	res.send('Express API')
 })

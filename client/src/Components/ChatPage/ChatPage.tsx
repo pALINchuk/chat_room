@@ -1,15 +1,16 @@
 import React, {useEffect, useRef, useState} from 'react';
 import styles from "./ChatPage.module.sass"
 import {ErrorMessage} from "../ErrorMessage";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Message} from "../Message";
 import {useMutation, useQuery, useSubscription} from "@apollo/client";
 import {ADD_MESSAGE, MESSAGES_QUERY, NEW_MESSAGES_SUBSCRIBE} from "../../queries/queries.ts";
 import {useDispatch, useSelector} from "../../hooks.ts";
 import {setMessages, updateContentValue, updateMessages} from "../../redux/slices/chatSlice.ts";
+import {updateIsAuth, updateUserId} from "../../redux/slices/globalSlice.ts";
 
 
-
+const LOG_OUT_URL = "http://localhost:3000/logout"
 
 
 type MessageType = {
@@ -28,20 +29,18 @@ const generateMessages = (messages:any, thisUser:string) =>{
 
 export const ChatPage = () => {
 
-	const {data, loading} = useSubscription(NEW_MESSAGES_SUBSCRIBE, {
-		// onData: ()=>handleNewData()
+	const {data, loading, error} = useSubscription(NEW_MESSAGES_SUBSCRIBE, {
 	})
 	const messageQuery = useQuery(MESSAGES_QUERY)
 	const [addMessage, addMessageResult] = useMutation(ADD_MESSAGE)
 	const {messages, contentValue} = useSelector(state=>state.chat)
 	const {userId} = useSelector(state => state.global)
 	const dispatch = useDispatch();
-
+	const navigate = useNavigate()
 	const contentRef: React.RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null)
 
 	const handleSubmit = (event:React.FormEvent<HTMLFormElement>) =>{
 		event.preventDefault()
-		console.log("try mutation")
 		addMessage({
 			variables:{
 				text: contentValue,
@@ -59,9 +58,18 @@ export const ChatPage = () => {
 		dispatch(updateContentValue(contentRef.current.value))
 	}
 
+	const handleLogOut = () =>{
+		console.log('logout')
+		fetch(LOG_OUT_URL, {credentials: "include", method: 'get'}).then(()=>{
+			dispatch(updateIsAuth(false))
+			dispatch(updateUserId(''))
+			navigate('/login')
+		}).catch(err=>console.log(err))
+
+	}
+
 
 	useEffect(()=>{
-		console.log("status changes")
 		if(!messageQuery.loading){
 			console.log(messageQuery.data)
 			dispatch(
@@ -105,7 +113,7 @@ export const ChatPage = () => {
 						<h1 className={styles.Chat_Header_title}>
 							Chat
 						</h1>
-						<button className={styles.Chat_Header_logout}>Log Out</button>
+						<button className={styles.Chat_Header_logout} onClick={handleLogOut}>Log Out</button>
 
 					</header>
 					<div className={styles.Chat_Feed}>

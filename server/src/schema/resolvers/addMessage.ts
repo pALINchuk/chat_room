@@ -4,6 +4,11 @@ import {newMessage} from "./newMessage";
 
 
 export const addMessage = async (parent, args:{text: string, post_date: string, userId: string}, context) =>{
+
+	if(!context.isAuth){
+		throw new Error("unauthorized")
+	}
+
 	const {text, post_date, userId} = args;
 	const message = new Message({
 		text: text,

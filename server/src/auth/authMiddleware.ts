@@ -1,7 +1,8 @@
 import {verifyToken} from "../utils";
+import {User} from "../models";
 
 
-export const authMiddleware = (req,res,next) =>{
+export const authMiddleware = async (req,res,next) =>{
 	const authJWT = req.cookies['auth'] ?? undefined
 
 	if (!authJWT) {
@@ -25,6 +26,21 @@ export const authMiddleware = (req,res,next) =>{
 		req.error = "Unable to decode jwt"
 		return next()
 	}
+	let user = null;
+	try{
+		user = await User.findById(decoded.userId)
+	}catch(err){
+		req.isAuth = false
+		req.error = err.message
+		return next()
+	}
+
+	if(!user){
+		req.isAuth = false
+		req.error = 'unauthorized'
+		return next()
+	}
+
 
 	req.isAuth = true
 	req.user = decoded
