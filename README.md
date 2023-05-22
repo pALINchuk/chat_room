@@ -4,7 +4,9 @@ wall where people write whatever they want, usually with
 paint, markers etc, i bet at least one of those is
 present in any city/village.
 <br/>
-<strong>Here comes the preview</strong>
+<hr/>
+<br/>
+<h1>Here comes the preview</h1>
 <br/>
 <img src="ui_preview/login.jpg" width="400px">
 <br/>
@@ -16,7 +18,9 @@ present in any city/village.
 <br/>
 <img src="ui_preview/chat_light.jpg" width="400px">
 <br/>
-how to set up for own usage?
+<hr/>
+<br/>
+<h2>how to set up for own usage?</h2>
 <br/>
 1. clone this repo
 2. install all dependencies in server and client folders with 'npm install' or 'yarn'
