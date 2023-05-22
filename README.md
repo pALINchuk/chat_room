@@ -4,7 +4,6 @@ wall where people write whatever they want, usually with
 paint, markers etc, i bet at least one of those is
 present in any city/village.
 <br/>
-<hr/>
 <br/>
 <h1>Here comes the preview</h1>
 <br/>
