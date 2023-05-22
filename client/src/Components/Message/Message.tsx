@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import styles from './Message.module.sass'
 
 type MessageProps = {
@@ -9,12 +9,27 @@ type MessageProps = {
 
 export const Message = ({author, text, isClient}: MessageProps) => {
 
-	//const authorRef : React.RefObject<HTMLParagraphElement> = useRef<HTMLParagraphElement>(null)
-	//const messageRef : React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
+
+	const messageRef : React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+
+		const theme = localStorage.getItem("theme")
+
+		if(messageRef.current){
+			if(theme=='"light"'){
+				messageRef.current.classList.add(styles.light_mode)
+				messageRef.current.classList.remove(styles.dark_mode)
+			}else{
+				messageRef.current.classList.add(styles.dark_mode)
+				messageRef.current.classList.remove(styles.light_mode)
+			}
+		}
+	}, [messageRef]);
 
 	return (
 		<>
-		<div className={[styles.Message, isClient ? styles.Message__right : null].join(' ')} >
+		<div className={[styles.Message, isClient ? styles.Message__right : null, styles.dark_mode].join(' ')} ref={messageRef}>
 			<p className={[styles.Message_author, isClient ? styles.Message_author__client : null].join(' ')}>
 				{author}
 			</p>

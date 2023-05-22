@@ -1,0 +1,46 @@
+@use "../../abstracts/colors" as *
+
+
+@mixin home-theme($primary-color,$active-color,$text-color)
+  background: $primary-color
+  color: $text-color
+  .HomePage_chatLink
+    color: $active-color
+  .HomePage_switch
+    background: $text-color
+    color: $primary-color
+
+.dark_mode
+  @include home-theme($primary-color-theme-dark, $active-colour-theme-dark, $text-colour-theme-dark)
+
+.light_mode
+  @include home-theme($primary-color-theme-light, $active-colour-theme-light, $text-colour-theme-light)
+  .HomePage_chatLink
+    font-weight: bold
+
+
+.HomePage
+  height: 100%
+  font-family: Poppins, sans-serif
+  display: flex
+  flex-flow: column
+  justify-content: center
+  align-items: center
+
+.HomePage_chatLink
+  text-decoration: none
+  font-size: 1.2rem
+  font-family: Poppins, sans-serif
+
+.HomePage_switch
+  background: none
+  border: none
+  font-family: Poppins, sans-serif
+  font-size: 1.2rem
+  font-weight: bold
+  border-radius: 1000px
+  cursor: pointer
+  padding: 1em
+  margin: 1em
+
+

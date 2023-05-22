@@ -29,14 +29,12 @@ export const Login: FunctionComponent = () => {
 			}
 		})
 			.then((response)=>{
-				console.log(response)
-
 				dispatch(updateIsAuth(true))
 				return response
 
 		}).then((response)=>{
 			dispatch(updateUserId(response.data?.login?.id))
-			navigate('/chat')
+			navigate('/')
 		})
 	}
 	const handleUsernameInput = () =>{

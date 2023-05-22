@@ -1,8 +1,4 @@
-$bg-color-theme-dark: #202124
-$text-colour-theme-dark: #fdfdfd
-$active-colour-theme-dark: rgba(0,170,255,0.75)
-$light-gray-colour-theme-dark: #757575
-$lighter-gray-colour-theme-dark: #2b2d30
+@use "../../abstracts/colors" as *
 
 
 $header-height: 8vh
@@ -10,8 +6,44 @@ $form-height: 8vh
 $chat-height-desktop: 94vh
 
 
+@mixin chat-theme($primary-color, $secondary-color, $tertiary-color, $active-color, $text-color)
+
+  background: $primary-color
+
+  .Chat
+    border: 2px solid $secondary-color
+  .Chat_Header
+    border-bottom: 2px solid $secondary-color
+  .Chat_MessageForm
+    background: $tertiary-color
+    border-top: $secondary-color
+  .Chat_Header_back
+    color: $secondary-color
+  .Chat_Header_back:hover
+    color: $text-color
+  .Chat_Header_title
+    color: $text-color
+  .Chat_Header_logout
+    color: $secondary-color
+  .Chat_Header_logout:hover
+    color: $text-color
+  .Chat_MessageForm_textInput
+    border-color: $secondary-color
+    color: $text-color
+  .Chat_MessageForm_sendButton
+    color: $text-color
 
 
+.dark_mode
+  @include chat-theme($primary-color-theme-dark, $secondary-colour-theme-dark, $tertiary-colour-theme-dark, $active-colour-theme-dark, $text-colour-theme-dark)
+
+
+.light_mode
+  @include chat-theme($primary-color-theme-light, $secondary-colour-theme-light, $tertiary-colour-theme-light, $active-colour-theme-light, $text-colour-theme-light)
+  .Chat_MessageForm_textInput
+    background: $primary-color-theme-light
+  .Chat_MessageForm_sendButton
+    color: $primary-color-theme-light
 
 .ChatPage
   width: 100vw
@@ -19,7 +51,6 @@ $chat-height-desktop: 94vh
   display: flex
   justify-content: center
   align-items: center
-  background: $bg-color-theme-dark
 
 
 .Chat
@@ -28,8 +59,6 @@ $chat-height-desktop: 94vh
   height: 100vh
   display: flex
   flex-flow: column
-  border: 2px solid $light-gray-colour-theme-dark
-
   *
     box-sizing: border-box
 
@@ -38,16 +67,13 @@ $chat-height-desktop: 94vh
   height: $header-height
   display: flex
   flex-flow: row
-  border-bottom: 2px solid $light-gray-colour-theme-dark
 
 
 .Chat_MessageForm
-  background: $lighter-gray-colour-theme-dark
   width: 100%
   display: flex
   flex-flow: row
   height: $form-height
-  border-top: 2px solid $light-gray-colour-theme-dark
 
 .Chat_Header_back
   width: $header-height
@@ -58,11 +84,9 @@ $chat-height-desktop: 94vh
   text-decoration: none
   font-size: 2rem
   font-weight: bold
-  color: $light-gray-colour-theme-dark
   transition: all .1s
 
-.Chat_Header_back:hover
-  color: $text-colour-theme-dark
+
 
 .Chat_Header_title
   height: $header-height
@@ -71,12 +95,9 @@ $chat-height-desktop: 94vh
   justify-content: center
   align-items: center
   font-family: Poppins, sans-serif
-  color: $light-gray-colour-theme-dark
   cursor: default
   transition: all .1s
 
-.Chat_Header_title:hover
-  color: $text-colour-theme-dark
 
 .Chat_Header_logout
   height: $header-height
@@ -88,20 +109,17 @@ $chat-height-desktop: 94vh
   display: flex
   justify-content: center
   align-items: center
-  color: $light-gray-colour-theme-dark
   transition: all .1s
 
-.Chat_Header_logout:hover
-  color: $text-colour-theme-dark
+
 
 .Chat_MessageForm_textInput
   margin: 0.5vh
   height: calc($form-height - 0.5vh - 0.5vh - 1px)
   width: calc( 100vw - $form-height - 0.5vh - 0.5vh)
   border-radius: calc(10px - 0.5vh)
-  border: 2px solid $light-gray-colour-theme-dark
+  border: 2px solid
   outline: none
-  color: $text-colour-theme-dark
   padding: 0.5em
   font-family: "Open Sans", sans-serif
   font-size: 0.8rem
@@ -115,7 +133,6 @@ $chat-height-desktop: 94vh
   background: none
   border: none
   outline: none
-  color: $text-colour-theme-dark
   margin: 0
 
 
@@ -140,6 +157,9 @@ $chat-height-desktop: 94vh
   flex-direction: column
 
 
+
+
+
 @media screen and (min-width: 700px)
   .Chat
     width: 40vw
@@ -148,9 +168,9 @@ $chat-height-desktop: 94vh
   .Chat_Feed
     height: calc($chat-height-desktop - $header-height - $form-height)
   .Chat_Header
-    border-radius: 10px 10px 0 0
+    border-radius: 8px 8px 0 0
   .Chat_MessageForm
-    border-radius: 0 0 10px 10px
+    border-radius: 0 0 8px 8px
   .Chat_Header_title
     width: calc(40vw - $header-height - $header-height)
   .Chat_MessageForm_textInput

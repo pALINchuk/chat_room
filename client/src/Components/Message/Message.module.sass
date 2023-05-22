@@ -1,8 +1,20 @@
-$bg-color-theme-dark: #202124
-$text-colour-theme-dark: #fdfdfd
-$active-colour-theme-dark: rgba(0,170,255,0.75)
-$light-gray-colour-theme-dark: #757575
-$lighter-gray-colour-theme-dark: #2b2d30
+@use "../../abstracts/colors" as *
+
+
+@mixin message-theme($secondary-color, $active-color, $text-color)
+  .Message_author
+    color: $secondary-color
+  .Message_Content_text
+    color: $text-color
+  .Message_author__client
+    color: $active-color
+
+.light_mode
+  @include message-theme($secondary-colour-theme-light, $active-colour-theme-light ,$text-colour-theme-light)
+
+.dark_mode
+  @include message-theme($secondary-colour-theme-dark, $active-colour-theme-dark, $text-colour-theme-dark)
+
 
 .Message
   font-family: "Open Sans", sans-serif
@@ -20,11 +32,9 @@ $lighter-gray-colour-theme-dark: #2b2d30
 .Message_author
   font-size: 1.1rem
   cursor: default
-  color: $light-gray-colour-theme-dark
 
 .Message_author__client
   text-align: end
-  color: dodgerblue
 
 .Message_Content
   display: flex
@@ -34,7 +44,6 @@ $lighter-gray-colour-theme-dark: #2b2d30
   justify-content: end
 
 .Message_Content_text
-  color: $text-colour-theme-dark
   font-size: 1.1rem
   overflow-wrap: break-word
 

@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "../../hooks.ts";
 import {checkAuth, clearState} from "../../redux/slices/globalSlice.ts";
 import {LoadingScreen} from "../LoadingScreen";
 import {ChatPage} from "../ChatPage";
+import {HomePage} from "../HomePage";
 
 
 
@@ -39,6 +40,9 @@ export const App = () => {
                     <Route element={<PrivateRoutes auth={isAuth}/>}>
                         <Route path="/chat" element ={
                             <ChatPage/>
+                        }/>
+                        <Route path="/" element ={
+                            <HomePage/>
                         }/>
                     </Route>
                     <Route path="/login" element={!isAuth ? <Login/> : <Navigate to="/chat" replace />}/>

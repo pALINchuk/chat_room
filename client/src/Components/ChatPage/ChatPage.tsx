@@ -39,6 +39,25 @@ export const ChatPage = () => {
 	const navigate = useNavigate()
 	const contentRef: React.RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null)
 
+	const pageRef: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
+
+
+	useEffect(() => {
+
+		const theme = localStorage.getItem("theme")
+
+		if(pageRef.current){
+			if(theme=='"light"'){
+				pageRef.current.classList.add(styles.light_mode)
+				pageRef.current.classList.remove(styles.dark_mode)
+			}else{
+				pageRef.current.classList.add(styles.dark_mode)
+				pageRef.current.classList.remove(styles.light_mode)
+			}
+		}
+	}, [pageRef]);
+
+
 	const handleSubmit = (event:React.FormEvent<HTMLFormElement>) =>{
 		event.preventDefault()
 		addMessage({
@@ -59,7 +78,6 @@ export const ChatPage = () => {
 	}
 
 	const handleLogOut = () =>{
-		console.log('logout')
 		fetch(LOG_OUT_URL, {credentials: "include", method: 'get'}).then(()=>{
 			dispatch(updateIsAuth(false))
 			dispatch(updateUserId(''))
@@ -71,7 +89,6 @@ export const ChatPage = () => {
 
 	useEffect(()=>{
 		if(!messageQuery.loading){
-			console.log(messageQuery.data)
 			dispatch(
 				setMessages(
 					messageQuery.data.messages.map((rawMessage:any)=>({
@@ -104,7 +121,7 @@ export const ChatPage = () => {
 
 	return (
 		<>
-			<div className={styles.ChatPage}>
+			<div className={[styles.ChatPage, styles.dark_mode].join(' ')} ref={pageRef}>
 				<div className={styles.Chat}>
 					<header className={styles.Chat_Header}>
 						<Link to="/" className={styles.Chat_Header_back}>
