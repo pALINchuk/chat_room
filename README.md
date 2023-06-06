@@ -20,9 +20,11 @@ other messengers and hosted on own or shared server.
 <br/>
 <h2>how to set up for own usage?</h2>
 <br/>
-1. clone this repo
-2. install all dependencies in server and client folders with 'npm install' or 'yarn'
-3. in server connect to your database and add .env file with ypur private key
-4. change links in client part to your api
-5. run the app locally or build it and host it
-6. enjoy using the chat
+<ol>
+	<li>clone this repo</li>
+	<li>install all dependencies in server and client folders with 'npm install' or 'yarn'</li>
+	<li>in server connect to your database and add .env file with your private key</li>
+	<li>change links in client part to your api</li>
+	<li>run the app locally or build it and host it</li>
+	<li>enjoy using the chat</li>
+</ol>
