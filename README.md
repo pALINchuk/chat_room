@@ -1,8 +1,7 @@
 Single example common group chat (chat room) for many
-users. it is called "chat wall", because it looks like a
-wall where people write whatever they want, usually with
-paint, markers etc, i bet at least one of those is
-present in any city/village.
+users. Example usage as common chat for some organisation
+like school or university which can be independent from
+other messengers and hosted on own or shared server.
 <br/>
 <br/>
 <h1>Here comes the preview</h1>
@@ -26,4 +25,4 @@ present in any city/village.
 3. in server connect to your database and add .env file with ypur private key
 4. change links in client part to your api
 5. run the app locally or build it and host it
-6. use the chat
+6. enjoy using the chat
