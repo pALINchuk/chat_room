@@ -42,12 +42,15 @@ export const ChatPage = () => {
 	const pageRef: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
 
 
+	//handle theme
+
 	useEffect(() => {
 
-		const theme = localStorage.getItem("theme")
+		const theme: string = JSON.parse(localStorage.getItem("theme") ?? 'dark')
+
 
 		if(pageRef.current){
-			if(theme=='"light"'){
+			if(theme=="light"){
 				pageRef.current.classList.add(styles.light_mode)
 				pageRef.current.classList.remove(styles.dark_mode)
 			}else{
@@ -60,6 +63,10 @@ export const ChatPage = () => {
 
 	const handleSubmit = (event:React.FormEvent<HTMLFormElement>) =>{
 		event.preventDefault()
+		if(!contentValue.length){
+			return
+		}
+
 		addMessage({
 			variables:{
 				text: contentValue,
@@ -86,6 +93,7 @@ export const ChatPage = () => {
 
 	}
 
+	//setting client's messages once loaded
 
 	useEffect(()=>{
 		if(!messageQuery.loading){
@@ -105,6 +113,8 @@ export const ChatPage = () => {
 	}, [messageQuery.loading])
 
 
+	//updating client's messages
+
 	useEffect(() => {
 		if(!loading){
 			dispatch(updateMessages(
@@ -115,7 +125,6 @@ export const ChatPage = () => {
 					user: data.newMessage.user.username
 				}
 			))
-			console.log(data)
 		}
 	}, [data]);
 
