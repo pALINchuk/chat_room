@@ -1,9 +1,11 @@
 @use "../../abstracts/colors" as *
+@use "../../abstracts/sizes" as *
 
 
-$header-height: 8vh
-$form-height: 8vh
-$chat-height-desktop: 94vh
+$header-height: max(8vh, calc(0.08 * $min-height))
+$form-height: max(8vh, calc(0.08 * $min-height))
+$chat-height-desktop: max(94vh, calc(0.94 * $min-height))
+$input-margin: 0.2rem
 
 
 @mixin chat-theme($primary-color, $secondary-color, $tertiary-color, $active-color, $text-color)
@@ -114,10 +116,10 @@ $chat-height-desktop: 94vh
 
 
 .Chat_MessageForm_textInput
-  margin: 0.5vh
-  height: calc($form-height - 0.5vh - 0.5vh - 1px)
-  width: calc( 100vw - $form-height - 0.5vh - 0.5vh)
-  border-radius: calc(10px - 0.5vh)
+  margin: $input-margin
+  height: calc($form-height - $input-margin - $input-margin - 1px)
+  width: calc( 100vw - $form-height - $input-margin - $input-margin)
+  border-radius: calc(10px - $input-margin)
   border: 2px solid
   outline: none
   padding: 0.5em
@@ -161,6 +163,10 @@ $chat-height-desktop: 94vh
 
 
 @media screen and (min-width: 700px)
+
+  .ChatPage
+    min-height: $min-height
+
   .Chat
     width: 40vw
     height: $chat-height-desktop
@@ -174,7 +180,7 @@ $chat-height-desktop: 94vh
   .Chat_Header_title
     width: calc(40vw - $header-height - $header-height)
   .Chat_MessageForm_textInput
-    width: calc( 40vw - $form-height - 0.5vh - 0.5vh)
+    width: calc( 40vw - $form-height - $input-margin - $input-margin)
 
 
   .Chat_Feed::-webkit-scrollbar
