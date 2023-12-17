@@ -3,6 +3,18 @@ $error-border-color: #999
 $text-colour: #232629
 $error-message-font-size: 1rem
 
+
+.MessageArea
+  position: absolute
+  top: 0
+
+.MessageArea__hidden
+  display: none
+
+.MessageArea__visible
+  display: flex
+
+
 .ErrorMessage
   height: 10vh
   width: 80vw
@@ -66,19 +78,24 @@ $error-message-font-size: 1rem
     font-size: .6rem
 
 @media screen and (min-width: 700px)
+
+  .MessageArea
+    position: absolute
+    left: 0
+    bottom: 0
+    overflow: hidden
+
   .ErrorMessage
     height: 7rem
     width: 20rem
     border-radius: 20px 20px 20px 5px
     padding: 1em
     overflow: hidden
-    position: absolute
+    position: relative
     margin-top: 0
     margin-left: 1em
     margin-bottom: 1em
     top: unset
-    left: 0
-    bottom: 0
     z-index: 10000
 
     @keyframes Message-fade-in

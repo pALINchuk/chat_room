@@ -36,8 +36,4 @@ export const addMessage = async (parent, args:{text: string, post_date: string, 
 
 	return newMessage
 
-
-
-
-
 }
