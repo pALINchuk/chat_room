@@ -4,7 +4,7 @@ like school or university which can be independent from
 other messengers and hosted on own or shared server.
 <br/>
 <br/>
-<h1>Here comes the preview</h1>
+<h1>Here comes the preview🖼️</h1>
 <br/>
 <img src="ui_preview/login.jpg" width="400px">
 <br/>
@@ -18,7 +18,7 @@ other messengers and hosted on own or shared server.
 <br/>
 <hr/>
 <br/>
-<h2>how to set up for own usage?</h2>
+<h2>⚙️How to set up for own usage?⚙️</h2>
 <br/>
 <ol>
 	<li>clone this repo</li>
@@ -26,5 +26,5 @@ other messengers and hosted on own or shared server.
 	<li>in server connect to your database and add .env file with your private key</li>
 	<li>change links in client part to your api</li>
 	<li>run the app locally or build it and host it</li>
-	<li>enjoy using the chat</li>
+	<li>enjoy using the chat🪁!</li>
 </ol>
