@@ -21,19 +21,33 @@ $input-margin: 0.2rem
     border-top: 2px solid $secondary-color
   .Chat_Header_back
     color: $secondary-color
+    svg
+      fill: $secondary-color
   .Chat_Header_back:hover
     color: $text-color
+    svg
+      fill: $text-color
   .Chat_Header_title
     color: $text-color
   .Chat_Header_logout
     color: $secondary-color
+    svg
+      fill: $secondary-color
   .Chat_Header_logout:hover
     color: $text-color
+    svg
+      fill: $text-color
   .Chat_MessageForm_textInput
     border-color: $secondary-color
     color: $text-color
+
+    &::-webkit-scrollbar-thumb
+      background: $secondary-color
+
   .Chat_MessageForm_sendButton
     color: $text-color
+    svg
+      fill: $text-color
 
 
 .dark_mode
@@ -46,6 +60,8 @@ $input-margin: 0.2rem
     background: $primary-color-theme-light
   .Chat_MessageForm_sendButton
     color: $primary-color-theme-light
+    svg
+      fill: $primary-color-theme-light
 
 .ChatPage
   width: 100vw
@@ -83,10 +99,12 @@ $input-margin: 0.2rem
   display: flex
   justify-content: center
   align-items: center
-  text-decoration: none
-  font-size: 2rem
   font-weight: bold
   transition: all .1s
+
+  svg
+    width: 1.4em
+    height: 1.4em
 
 
 
@@ -113,6 +131,10 @@ $input-margin: 0.2rem
   align-items: center
   transition: all .1s
 
+  svg
+    width: 1.5em
+    height: 1.5em
+
 
 
 .Chat_MessageForm_textInput
@@ -124,9 +146,15 @@ $input-margin: 0.2rem
   outline: none
   padding: 0.5em
   font-family: "Open Sans", sans-serif
-  font-size: 0.8rem
+  font-size: 0.9rem
   background: none
   resize: none
+
+  &::-webkit-scrollbar
+    width: 8px
+
+  &::-webkit-scrollbar-thumb
+    border-radius: 50px
 
 .Chat_MessageForm_sendButton
   height: $form-height
@@ -136,6 +164,9 @@ $input-margin: 0.2rem
   border: none
   outline: none
   margin: 0
+  svg
+    width: 1.5em
+    height: 1.5em
 
 
 .Chat_Feed
