@@ -1,11 +1,11 @@
-import {hashPassword} from "../../utils";
+import {hashPasswordBcrypt} from "../../utils";
 import {HydratedDocument} from "mongoose";
 import {IUser, User} from "../../models";
 
 
 export const register = async (parent, args : {username: string, password: string}) => {
 	const {username, password}: {username: string, password: string} = args;
-	const hashedPassword: string = await hashPassword(password)
+	const hashedPassword: string = await hashPasswordBcrypt(password)
 	let result: HydratedDocument<IUser> = null;
 	try{
 		result = await new User({

@@ -1,6 +1,6 @@
 import {HydratedDocument} from "mongoose";
 import {IUser, User} from "../../models";
-import {signToken, verifyPassword} from "../../utils";
+import {signToken, verifyPasswordBcrypt} from "../../utils";
 
 
 export const login = async (parent, args: {username: string, password: string}, context) =>{
@@ -11,7 +11,7 @@ export const login = async (parent, args: {username: string, password: string}, 
 		throw new Error("User not found")
 	}
 
-	const isValidPassword: boolean = await verifyPassword(result.password, password)
+	const isValidPassword: boolean = await verifyPasswordBcrypt(result.password, password)
 	if (!isValidPassword) {
 		throw new Error("Invalid password");
 	}
